@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    {% if user.is_authenticated %}
+       <meta http-equiv="REFRESH" content="0;url=/">
+    {% endif %}
 </head>
 <body>
+    {% include '_header.html' %}
+
     <h2>Login</h2>
     <form method="post">
       {% csrf_token %}

@@ -6,27 +6,20 @@
 </head>
 <body>
 
-
+    {% include '_header.html' %}
 <!-- Next Post: https://wsvincent.com/django-user-authentication-tutorial-signup/ -->
 
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-{% endif %}
 
-
+<a href="{% url 'new' %}">New Post</a>
 
 {% if latest_post_list %}
     <ul>
     {% for post in latest_post_list %}
-        <li><a href="/reports/{{ post.id }}/">{{ post.title }}</a></li>
+        <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No posts are available.</p>
+    <p> No posts are available. </p>
 {% endif %}
 </body>
 </html>

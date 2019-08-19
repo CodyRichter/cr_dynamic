@@ -5,11 +5,17 @@
     <title>{{ post.title }}</title>
 </head>
 <body>
-    <h1>{{ post.title }}</h1>
-    <p> {{ post.description }}</p>
+    {% include '_header.html' %}
 
-    <a href = {{ post.image_link }}> </a>
-    <ul>
-    </ul>
+    <h1>{{ post.title }}</h1>
+    <p>Posted by: {{ post.author.username }} on {{ post.pub_date.astimezone }}</p>
+    {% if user == post.author %}
+        <a href="{% url 'edit' post.pk %}">Edit Post</a>
+        <a href="{% url 'delete' post.pk %}">Delete Post</a>
+
+    {% endif %}
+    <hr>
+    <p> {{ post.description }}</p>
+    <img src = "{{ post.image_link }}" alt="Post Image">
 </body>
 </html>
