@@ -1,26 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'reports/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/lato.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/merriweather.css' %}">
+
     <title>All Posts</title>
 </head>
 <body>
 
-    {% include '_header.html' %}
-<!-- Next Post: https://wsvincent.com/django-user-authentication-tutorial-signup/ -->
+{% include '_header.html' %}
 
+<div class="content-background">
+    <div class="content-body">
 
-<a href="{% url 'new' %}">New Post</a>
+        {% if post_today or post_past %}
+            {% if post_today %}
+                <p class="text-header">Today's Posts</p>
+                {% for post in post_today %}
+                    <a href="{% url 'detail' post.id %}">
+                        <div class="post-menu-item text-content">
+                            {{ post.title }} | {{ post.author }}
+                        </div>
+                    </a><br>
 
-{% if latest_post_list %}
-    <ul>
-    {% for post in latest_post_list %}
-        <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p> No posts are available. </p>
-{% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if post_past %}
+                <p class="text-header">Previous Posts</p>
+                {% for post in post_past %}
+                    <a href="{% url 'detail' post.id %}">
+                        <div class="post-menu-item text-content">
+                            {{ post.title }} | {{ post.author }}
+                        </div>
+                    </a><br>
+                {% endfor %}
+            {% endif %}
+
+        {% else %}
+            <p class="text-content"> No posts are available. </p>
+        {% endif %}
+
+        {% if my_post %}
+            <p class="text-header">My Posts</p>
+            {% for post in my_post %}
+                <a href="{% url 'detail' post.id %}">
+                    <div class="post-menu-item text-content">
+                        {{ post.title }} | {{ post.author }}
+                    </div>
+                </a><br>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
 </body>
 </html>
 

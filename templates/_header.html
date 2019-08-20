@@ -1,16 +1,41 @@
-{% if user.is_authenticated %}
-    <a href="/">Home</a>
-    <a href="/reports/">Reports</a>
-    <a href="/auth/logout">Logout  ({{ user.username }})</a>
-{% else %}
-    <a href="/auth/logout">Log In</a>
-{% endif %}
-<hr>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-    <hr>
-{% endif %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'page/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'fonts/lato.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'fonts/merriweather.css' %}">
+<div class="header-bar">
+    {% if user.is_authenticated %}
+        <a href="/">
+            <div class=header-button>Home</div>
+        </a>
+        <a href="/reports">
+            <div class=header-button>Reports</div>
+        </a>
+
+        <a href="{% url 'new' %}">
+            <div class=header-button>New Post</div>
+        </a>
+
+        <a href="/auth/logout">
+            <div class=header-button>Logout ({{ user.username }})</div>
+        </a>
+
+    {% else %}
+        <a href="/auth/login">
+            <div class=header-button>Log In</div>
+        </a>
+    {% endif %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert error">{{ message }}</div><br>
+                {% else %}
+                    <div class="alert">{{ message }}</div>
+                {% endif %}
+
+            {% endfor %}
+        </ul>
+        <hr>
+    {% endif %}
+</div>

@@ -8,7 +8,7 @@
     {% include '_header.html' %}
 
     <h1>{{ post.title }}</h1>
-    <p>Posted by: {{ post.author.username }} on {{ post.pub_date.astimezone }}</p>
+    <p>Posted by: {{ post.author.username }} on {{ post.release_date.astimezone }}</p>
     {% if user == post.author %}
         <a href="{% url 'edit' post.pk %}">Edit Post</a>
         <a href="{% url 'delete' post.pk %}">Delete Post</a>

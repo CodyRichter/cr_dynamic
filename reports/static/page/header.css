@@ -1,0 +1,42 @@
+a {
+    text-decoration: none;
+}
+
+.header-bar {
+    text-align: center;
+    overflow: scroll;
+}
+
+.header-button {
+    font-size: 1em;
+    letter-spacing: 0.10em;
+    font-family: 'Lato', sans-serif;
+    text-decoration: none;
+    text-align: center;
+    padding: 1vh 1vw;
+    max-width: 20vw;
+    display: inline-block;
+    color: black;
+    margin-bottom: 0.5vw;
+}
+
+.header-button:hover {
+    background-color: rgba(0, 0, 0, 0.23);
+    border-radius: 1vw;
+}
+
+.alert {
+    font-weight: bold;
+    padding: 0.5vw 2vw;
+    max-width: 30vw;
+    border-radius: 1vw;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.23);
+    color: black;
+    font-family: 'Lato', sans-serif;
+}
+
+.error {
+    background-color: #801c15;
+    color: white;
+}
