@@ -1,15 +1,14 @@
-import datetime
-
 from django.contrib.auth.models import User
 from django.db import models
 
 
 class Post(models.Model):
     title = models.CharField(max_length=32)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=5000)
     image_link = models.CharField(max_length=256)
     release_date = models.DateTimeField('release date')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    pinned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

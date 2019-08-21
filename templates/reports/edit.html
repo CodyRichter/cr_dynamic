@@ -3,13 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Post</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'reports/inputs.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'reports/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/lato.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/merriweather.css' %}">
 </head>
 <body>
-    {% include '_header.html' %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit Edits">
-    </form>
+{% include '_header.html' %}
+<div class="content-background">
+    <div class="content-body">
+        <p class="text-header">Edit Post</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label }} <br>
+                {{ field }}
+                <br><br>
+            {% endfor %}
+            <br>
+            <button type="submit" class="data-button">Submit Edits</button>
+
+            {% if form.errors %}
+                <p class="form-error">Unable To Update Post:</p>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p class="form-error">{{ error|escape }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p class="form-error">{{ error|escape }}</p>
+                {% endfor %}
+            {% endif %}
+
+        </form>
+    </div>
+</div>
 </body>
 </html>

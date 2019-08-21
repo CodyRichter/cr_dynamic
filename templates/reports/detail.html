@@ -3,19 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ post.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'reports/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/lato.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/merriweather.css' %}">
 </head>
 <body>
-    {% include '_header.html' %}
+{% include '_header.html' %}
+<div class="content-background">
+    <div class="content-body">
+        <p class="text-header">{{ post.title }}</p>
+        <p class="text-content">Posted by: {{ post.author.username }} on {{ post.release_date.astimezone }}</p>
+        {% if user == post.author or user.is_staff %}
+            <div style="align-content: center">
+                <form style="display: inline-block" action="{% url 'edit' post.pk %}" }>
+                    <button class="data-button">Edit Post</button>
+                </form>
+                <form style="display: inline-block" action="{% url 'delete' post.pk %}" }>
+                    <button class="data-button">Delete Post</button>
+                </form>
 
-    <h1>{{ post.title }}</h1>
-    <p>Posted by: {{ post.author.username }} on {{ post.release_date.astimezone }}</p>
-    {% if user == post.author %}
-        <a href="{% url 'edit' post.pk %}">Edit Post</a>
-        <a href="{% url 'delete' post.pk %}">Delete Post</a>
-
-    {% endif %}
-    <hr>
-    <p> {{ post.description }}</p>
-    <img src = "{{ post.image_link }}" alt="Post Image">
+                {% if user.is_staff %}
+                    <form style="display: inline-block" action="{% url 'pin' post.pk %}" }>
+                    {% if post.pinned %}
+                        <button class="data-button">Unpin Post</button>
+                    {% else %}
+                        <button class="data-button">Pin Post</button>
+                    {% endif %}
+                    </form>
+                {% endif %}
+            </div>
+        {% endif %}
+        <hr>
+        <p> {{ post.description }}</p>
+        <img src="{{ post.image_link }}" alt="Post Image">
+    </div>
+</div>
 </body>
 </html>

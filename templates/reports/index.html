@@ -17,32 +17,45 @@
 <div class="content-background">
     <div class="content-body">
 
-        {% if post_today or post_past %}
-            {% if post_today %}
-                <p class="text-header">Today's Posts</p>
-                {% for post in post_today %}
-                    <a href="{% url 'detail' post.id %}">
-                        <div class="post-menu-item text-content">
-                            {{ post.title }} | {{ post.author }}
-                        </div>
-                    </a><br>
+        {% if pinned %}
+            <p class="text-header">Pinned Posts</p>
+            {% for post in pinned %}
+                <a href="{% url 'detail' post.id %}">
+                    <div class="post-menu-item text-content">
+                       [ {{ post.title }} ]
+                    </div>
+                </a><br>
 
-                {% endfor %}
-            {% endif %}
+            {% endfor %}
+            <br>
+            <br>
+        {% endif %}
 
-            {% if post_past %}
-                <p class="text-header">Previous Posts</p>
-                {% for post in post_past %}
-                    <a href="{% url 'detail' post.id %}">
-                        <div class="post-menu-item text-content">
-                            {{ post.title }} | {{ post.author }}
-                        </div>
-                    </a><br>
-                {% endfor %}
-            {% endif %}
+        {% if post_today %}
+            <p class="text-header">Today's Posts</p>
+            {% for post in post_today %}
+                <a href="{% url 'detail' post.id %}">
+                    <div class="post-menu-item text-content">
+                        {{ post.title }} | {{ post.author }}
+                    </div>
+                </a><br>
 
-        {% else %}
-            <p class="text-content"> No posts are available. </p>
+            {% endfor %}
+            <br>
+            <br>
+        {% endif %}
+
+        {% if post_past %}
+            <p class="text-header">Previous Posts</p>
+            {% for post in post_past %}
+                <a href="{% url 'detail' post.id %}">
+                    <div class="post-menu-item text-content">
+                        {{ post.title }} | {{ post.author }}
+                    </div>
+                </a><br>
+            {% endfor %}
+            <br>
+            <br>
         {% endif %}
 
         {% if my_post %}

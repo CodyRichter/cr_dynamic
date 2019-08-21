@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, forms
 
 from reports.models import Post
 
@@ -11,8 +11,8 @@ class PostForm(ModelForm):
             'title': 'Post Title',
             'description': 'Description',
             'image_link': 'Image URL',
-            'release_date': 'Post Release Date'
+            'release_date': 'Post Release Date',
         }
         help_texts = {
-            'image_link': 'This must be a link directly to the image file, not only the the image is on.',
+            'image_link': 'This must be a link directly to the image file, not the page the image is on.',
         }

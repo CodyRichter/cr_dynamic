@@ -11,13 +11,15 @@ from reports.models import Post
 @login_required(login_url='/auth/login')
 def index(request):
     cdt = datetime.datetime.now()
-    post_today = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date')
-    post_past = Post.objects.all().filter(release_date__lt=datetime.date.today()).order_by('release_date')
+    pinned = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date').filter(pinned=True)
+    post_today = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date').filter(pinned=False)
+    post_past = Post.objects.all().filter(release_date__lt=datetime.date.today()).order_by('release_date').filter(pinned=False)
     my_post = Post.objects.all().filter(author=request.user).order_by('release_date')
     context = {'post_today': post_today,
                'post_past': post_past,
                'my_post': my_post,
-               'cdt': cdt}
+               'cdt': cdt,
+               'pinned': pinned}
     return render(request, 'reports/index.html', context)
 
 
@@ -37,14 +39,13 @@ def new(request):
 @login_required(login_url='/auth/login')
 def edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    if post.author != request.user:
+    if post.author != request.user and not request.user.is_staff:
         messages.error(request, 'You do not have permission to edit this post.')
         return redirect('/reports/' + str(post_id))
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
             post.save()
             return redirect('/reports/' + str(post_id))
     else:
@@ -55,7 +56,7 @@ def edit(request, post_id):
 @login_required(login_url='/auth/login')
 def delete(request, post_id):
     post = Post.objects.get(id=post_id)
-    if post.author != request.user:
+    if post.author != request.user and not request.user.is_staff:
         messages.error(request, 'You do not have permission to delete this post.')
         return redirect('/reports/')
     post.delete()
@@ -66,7 +67,22 @@ def delete(request, post_id):
 @login_required(login_url='/auth/login')
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    if post.release_date.date() > datetime.datetime.today().date() and post.author != request.user:
+    if post.release_date.astimezone() >= datetime.datetime.now().astimezone() and post.author != request.user:
         messages.error(request, 'You do not have permission to view this post.')
         return redirect('/reports/')
+    return render(request, 'reports/detail.html', {'post': post})
+
+
+@login_required(login_url='/auth/login')
+def pin(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if not request.user.is_staff:
+        messages.error(request, 'You do not have permission to perform this action.')
+        return redirect('/reports/')
+    post.pinned = not post.pinned
+    post.save()
+    if post.pinned:
+        messages.success(request, 'Post pinned successfully.')
+    else:
+        messages.success(request, 'Post unpinned successfully.')
     return render(request, 'reports/detail.html', {'post': post})
