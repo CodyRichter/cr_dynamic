@@ -1,13 +1,16 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from cr_dynamic import settings
+from users.models import SiteUser
+
 
 class Post(models.Model):
     title = models.CharField(max_length=32)
     description = models.CharField(max_length=5000)
     image_link = models.CharField(max_length=256)
     release_date = models.DateTimeField('release date')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pinned = models.BooleanField(default=False)
 
     def __str__(self):

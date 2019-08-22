@@ -74,7 +74,7 @@ var componentHandler = {
   /**
    * Registers a class for future use and attempts to upgrade existing DOM.
    *
-   * @param {componentHandler.ComponentConfigPublic} config the registration configuration
+   * @param {componentHandler.ComponentConfigPublic} config the auth configuration
    */
   register: function(config) {},
   /**

@@ -1,6 +1,8 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm, forms
 
 from reports.models import Post
+from users.models import SiteUser
 
 
 class PostForm(ModelForm):
@@ -16,3 +18,10 @@ class PostForm(ModelForm):
         help_texts = {
             'image_link': 'This must be a link directly to the image file, not the page the image is on.',
         }
+
+
+class SiteUserCreationForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        model = SiteUser
+        fields = UserCreationForm.Meta.fields #  + ('custom_field',)

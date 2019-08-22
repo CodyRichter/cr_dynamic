@@ -15,9 +15,13 @@
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
                 {% if user.is_authenticated %}
-                    <div class="material-icons mdl-badge mdl-badge--overlap"><a href="#" class="mdl-button--icon"
+                    <div class="material-icons mdl-badge mdl-badge--overlap"><a href="{% url 'profile' user.id %}"
+                                                                                class="mdl-button--icon"
                                                                                 style="text-decoration: none">account_box</a>
                     </div>
+
+                {% else %}
+                    <div></div>
                 {% endif %}
             </nav>
         </div>

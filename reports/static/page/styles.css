@@ -6,3 +6,7 @@ body {
 .homepage-background {
     height: 100vh;
 }
+
+.login-card {
+    border-radius: 10em;
+}
