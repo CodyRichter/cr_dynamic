@@ -1,0 +1,39 @@
+{% load static %}
+<link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
+<script src='{% static 'material/material.min.js' %}'></script>
+<link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
+
+<footer class="mdl-mini-footer">
+    <div class="mdl-mini-footer__left-section">
+        <div class="mdl-logo">
+            Cody Richter 2019
+        </div>
+        <ul class="mdl-mini-footer__link-list">
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy and Terms</a></li>
+            <li><a href="#">User Agreement</a></li>
+        </ul>
+    </div>
+    <div class="mdl-mini-footer__right-section">
+        <button class="mdl-mini-footer__social-btn">icon</button>
+        <button class="mdl-mini-footer__social-btn">icon</button>
+        <button class="mdl-mini-footer__social-btn">icon</button>
+    </div>
+</footer>
+
+{#<div class="mdl-navigation">#}
+{##}
+{#    {% if messages %}#}
+{#        <br>#}
+{#        {% for message in messages %}#}
+{#            {% if message.tags == 'error' %}#}
+{#                <br>#}
+{#                <div class="alert error">{{ message }}</div><br>#}
+{#            {% else %}#}
+{#                <br>#}
+{#                <div class="alert">{{ message }}</div>#}
+{#            {% endif %}#}
+{##}
+{#        {% endfor %}#}
+{#    {% endif %}#}
+{#</div>#}

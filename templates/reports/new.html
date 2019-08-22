@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create New Post</title>
+    <title>New Post</title>
+
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'reports/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/lato.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/merriweather.css' %}">
+    <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
+    <script src='{% static 'material/material.min.js' %}'></script>
+    <link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
 </head>
 
 <script>
@@ -14,44 +15,65 @@
         document.getElementById("release_date").value = new Date().toLocaleDateString()
     }
 </script>
+
 <body>
-{% include '_header.html' %}
-<div class="content-background">
-    <div class="content-body">
-        <p class="text-header">Create New Post</p>
-        <form method="post">
-            {% csrf_token %}
 
-            <input class="form-control form-data-title" id="title" name="title" placeholder="Title" required><br>
-            <textarea class="form-control form-data-large" type="text" id="description" name="description"
-                      placeholder="Description"
-                      required></textarea>
-            <input class="form-control form-data" id="image_link" name="image_link" placeholder="Image Link"
-                   required><br>
-            <input class="form-control form-data" id="release_date" name="release_date"
-                   placeholder="Post Publishing Date"
-                   required><br>
+<div class="mdl-layout mdl-js-layout">
+    {% include '_header.html' %}
+    <main class="mdl-layout__content">
+        <br>
+        <br>
+        <br>
+        <div class="mdl-grid" style="text-align: center">
+            <div class="mdl-cell mdl-cell--2-col">
 
-            <input onclick="change()" type="button" value="Today">
-            <br>
+            </div>
 
+            <div class="mdl-cell mdl-cell--8-col">
+                <h3>Create New Post</h3>
+                <form method="post">
+                    {% csrf_token %}
 
-            <button type="submit" class="data-button">Create Post</button>
-            <br>
+                    <input class="mdl-textfield__input" id="title" name="title" placeholder="Title" required><br>
+                    <textarea class="mdl-textfield__input" type="text" id="description" name="description"
+                              placeholder="Description"
+                              required></textarea>
+                    <input class="mdl-textfield__input" id="image_link" name="image_link" placeholder="Image Link"
+                           required><br>
+                    <input class="mdl-textfield__input" id="release_date" name="release_date"
+                           placeholder="Post Publishing Date"
+                           required>
+                    <br>
+                    <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="change()"
+                           type="button" value="Today">
+                    <br>
+                    <br>
 
-            {% if formset.errors %}
-                <p class="form-error">Unable To Create Post:</p>
-                {% for field in formset %}
-                    {% for error in field.errors %}
-                        <p class="form-error">{{ error|escape }}</p>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in formset.non_field_errors %}
-                    <p class="form-error">{{ error|escape }}</p>
-                {% endfor %}
-            {% endif %}
-        </form>
-    </div>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                        Create Post
+                    </button>
+                    <br>
+
+                    {% if formset.errors %}
+                        <p class="form-error">Unable To Create Post:</p>
+                        {% for field in formset %}
+                            {% for error in field.errors %}
+                                <p class="form-error">{{ error|escape }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in formset.non_field_errors %}
+                            <p class="form-error">{{ error|escape }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+            </div>
+
+            <div class="mdl-cell mdl-cell--2-col">
+
+            </div>
+        </div>
+    </main>
+    {% include '_footer.html' %}
 </div>
 </body>
 </html>

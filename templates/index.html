@@ -1,26 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {#Redirect To Login Page If Not Logged In Already#}
-    {% if not user.is_authenticated %}
-       <meta http-equiv="REFRESH" content="0;url=auth/login">
-    {% endif %}
     <meta charset="UTF-8">
     <title>Cody Richter: Root Navigation</title>
+    {% load static %}
+    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
 </head>
+
 <body>
+
+<div class="mdl-layout mdl-js-layout">
     {% include '_header.html' %}
-
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    <main class="mdl-layout__content">
+        <br>
+        <br>
+        <br>
+        <div class="mdl-grid" style="text-align: center">
 
 
+            <div class="homepage-background mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
 
-    <p>Reports: <a href="reports">[Here]</a> </p>
+                <h1>Cody Richter</h1>
+
+            </div>
+
+
+            <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-card mdl-shadow--2dp" style="display: inline-block">
+                    <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
+                        <h2 class="mdl-card__title-text">Our Mission</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p>To create a platform that anyone can post on, whether it be to a small group or to the
+                            world.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-card mdl-shadow--2dp" style="display: inline-block">
+                    <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
+                        <h2 class="mdl-card__title-text">Your Privacy</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p>We take your privacy very seriously. With the latest <i>plaintext encryption</i>, your data
+                            is in good hands.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-card mdl-shadow--2dp" style="display: inline-block">
+                    <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
+                        <h2 class="mdl-card__title-text">Everyone's Platform</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p>We allow all different types of posts, from small discussions to sharing creations and
+                            media.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    {% include '_footer.html' %}
+</div>
 </body>
 </html>

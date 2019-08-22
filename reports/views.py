@@ -11,6 +11,7 @@ from reports.models import Post
 @login_required(login_url='/auth/login')
 def index(request):
     cdt = datetime.datetime.now()
+    # Create specific lists of posts to display on home page
     pinned = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date').filter(pinned=True)
     post_today = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date').filter(pinned=False)
     post_past = Post.objects.all().filter(release_date__lt=datetime.date.today()).order_by('release_date').filter(pinned=False)
@@ -21,6 +22,15 @@ def index(request):
                'cdt': cdt,
                'pinned': pinned}
     return render(request, 'reports/index.html', context)
+
+
+@login_required(login_url='/auth/login')
+def detail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if post.release_date.astimezone() >= datetime.datetime.now().astimezone() and post.author != request.user:
+        messages.error(request, 'You do not have permission to view this post.')
+        return redirect('/reports/')
+    return render(request, 'reports/detail.html', {'post': post})
 
 
 @login_required(login_url='/auth/login')
@@ -62,15 +72,6 @@ def delete(request, post_id):
     post.delete()
     messages.success(request, 'Post successfully deleted.')
     return redirect('/reports/')
-
-
-@login_required(login_url='/auth/login')
-def detail(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    if post.release_date.astimezone() >= datetime.datetime.now().astimezone() and post.author != request.user:
-        messages.error(request, 'You do not have permission to view this post.')
-        return redirect('/reports/')
-    return render(request, 'reports/detail.html', {'post': post})
 
 
 @login_required(login_url='/auth/login')

@@ -2,42 +2,85 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ post.title }}</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'reports/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/lato.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/merriweather.css' %}">
-</head>
-<body>
-{% include '_header.html' %}
-<div class="content-background">
-    <div class="content-body">
-        <p class="text-header">{{ post.title }}</p>
-        <p class="text-content">Posted by: {{ post.author.username }} on {{ post.release_date.astimezone }}</p>
-        {% if user == post.author or user.is_staff %}
-            <div style="align-content: center">
-                <form style="display: inline-block" action="{% url 'edit' post.pk %}" }>
-                    <button class="data-button">Edit Post</button>
-                </form>
-                <form style="display: inline-block" action="{% url 'delete' post.pk %}" }>
-                    <button class="data-button">Delete Post</button>
-                </form>
+    <title> {{ post.title }}</title>
 
-                {% if user.is_staff %}
-                    <form style="display: inline-block" action="{% url 'pin' post.pk %}" }>
-                    {% if post.pinned %}
-                        <button class="data-button">Unpin Post</button>
-                    {% else %}
-                        <button class="data-button">Pin Post</button>
-                    {% endif %}
-                    </form>
-                {% endif %}
+    {% load static %}
+    <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
+    <script src='{% static 'material/material.min.js' %}'></script>
+    <link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
+</head>
+
+<body>
+
+<div class="mdl-layout mdl-js-layout">
+    {% include '_header.html' %}
+    <main class="mdl-layout__content">
+        <br>
+        <br>
+        <br>
+        <div class="mdl-grid" style="text-align: center">
+
+            <!--
+                Display Post
+            -->
+            <div class="mdl-cell mdl-cell--2-col-tablet mdl-cell--1-col-phone mdl-cell--3-col-desktop"></div>
+
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
+                 style="display: inline-block;">
+                <h3>{{ post.title }}</h3>
+                <p>Posted by {{ post.author }} on {{ post.release_date.astimezone }}</p>
             </div>
-        {% endif %}
-        <hr>
-        <p> {{ post.description }}</p>
-        <img src="{{ post.image_link }}" alt="Post Image">
-    </div>
+
+            <div class="mdl-cell mdl-cell--1-col-tablet mdl-cell--1-col-phone mdl-cell--3-col-desktop"></div>
+
+            <div class="mdl-cell mdl-cell--2-col-tablet mdl-cell--2-col-phone mdl-cell--2-col-desktop">
+                <a class="mdl-navigation__link" href="{% url 'edit' post.pk %}">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit Post</button>
+                </a>
+            </div>
+
+            <div class="mdl-cell mdl-cell--2-col-tablet mdl-cell--2-col-phone mdl-cell--2-col-desktop">
+                <a class="mdl-navigation__link" href="{% url 'delete' post.pk %}">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete Post
+                    </button>
+                </a>
+            </div>
+
+            {% if post.pinned and user.is_staff %}
+
+                <div class="mdl-cell mdl-cell--2-col-tablet mdl-cell--2-col-phone mdl-cell--2-col-desktop">
+                    <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Unpin Post
+                        </button>
+                    </a>
+                </div>
+
+            {% elif not post.pinned and user.is_staff %}
+
+                <div class="mdl-cell mdl-cell--2-col-tablet mdl-cell--2-col-phone mdl-cell--2-col-desktop">
+                    <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Pin Post
+                        </button>
+                    </a>
+                </div>
+
+            {% endif %}
+
+            <div class="mdl-cell mdl-cell--1-col-tablet mdl-cell--1-col-phone mdl-cell--3-col-desktop"></div>
+
+            <div class="mdl-cell mdl-cell--1-col-tablet mdl-cell--1-col-phone mdl-cell--2-col-desktop"></div>
+
+            <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone"
+                 style="display: inline-block">
+                <p> {{ post.description }}</p>
+                <img src="{{ post.image_link }}" alt="Post Image">
+            </div>
+
+            <div class="mdl-cell mdl-cell--1-col-tablet mdl-cell--1-col-phone mdl-cell--2-col-desktop"></div>
+
+
+    </main>
+    {% include '_footer.html' %}
 </div>
 </body>
 </html>

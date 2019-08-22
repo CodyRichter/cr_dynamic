@@ -1,37 +1,41 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'page/header.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'fonts/lato.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'fonts/merriweather.css' %}">
-<div class="header-bar">
-    {% if user.is_authenticated %}
-        {#        <a href="/">#}
-        {#            <div class=header-button>Home</div>#}
-        {#        </a>#}
-        <a href="/reports">
-            <div class=header-button>All Posts</div>
-        </a>
+<link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+<link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
+<script src='{% static 'material/material.min.js' %}'></script>
+<link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
 
-        <a href="{% url 'new' %}">
-            <div class=header-button>New Post</div>
-        </a>
-
-        <a href="/auth/logout">
-            <div class=header-button>Logout ({{ user.username }})</div>
-        </a>
-
-    {% endif %}
-
-    {% if messages %}
-        <br>
-        {% for message in messages %}
-            {% if message.tags == 'error' %}
-                <br>
-                <div class="alert error">{{ message }}</div><br>
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Material Web Forum</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                {% if user.is_authenticated %}
+                    <div class="material-icons mdl-badge mdl-badge--overlap"><a href="#" class="mdl-button--icon"
+                                                                                style="text-decoration: none">account_box</a>
+                    </div>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Navigation</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="/">Home</a>
+            {% if user.is_authenticated %}
+                <a class="mdl-navigation__link" href="/reports">All Posts</a>
+                <a class="mdl-navigation__link" href="{% url 'new' %}">New Post</a>
+                <a class="mdl-navigation__link" href="/auth/logout"> Logout ({{ user.username }}) </a>
             {% else %}
-                <br>
-                <div class="alert">{{ message }}</div>
+                <a class="mdl-navigation__link" href="/auth/login"> Login </a>
             {% endif %}
-
-        {% endfor %}
-    {% endif %}
+        </nav>
+    </div>
+    <main class="mdl-layout__content">
+        <div class="page-content"><!-- Your content goes here --></div>
+    </main>
 </div>
