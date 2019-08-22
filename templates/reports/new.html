@@ -8,6 +8,7 @@
     <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
     <script src='{% static 'material/material.min.js' %}'></script>
     <link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
+    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
 </head>
 
 <script>
@@ -34,13 +35,13 @@
                 <form method="post">
                     {% csrf_token %}
 
-                    <input class="mdl-textfield__input" id="title" name="title" placeholder="Title" required><br>
+                    <input class="mdl-textfield__input wide-input" id="title" name="title" placeholder="Title" required><br>
                     <textarea class="mdl-textfield__input" type="text" id="description" name="description"
                               placeholder="Description"
                               required></textarea>
-                    <input class="mdl-textfield__input" id="image_link" name="image_link" placeholder="Image Link"
+                    <input class="normal-input mdl-textfield__input" id="image_link" name="image_link" placeholder="Image Link"
                            required><br>
-                    <input class="mdl-textfield__input" id="release_date" name="release_date"
+                    <input class="normal-input mdl-textfield__input" id="release_date" name="release_date"
                            placeholder="Post Publishing Date"
                            required>
                     <br>

@@ -1,15 +1,15 @@
 {% load static %}
-<link rel="stylesheet" href='{% static 'page/styles.css' %}'>
 <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
 <script src='{% static 'material/material.min.js' %}'></script>
 <link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
+<link rel="stylesheet" href='{% static 'page/styles.css' %}'>
 
 <!-- Always shows a header, even in smaller screens. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Material Web Forum</span>
+            <span class="mdl-layout-title"><!-- Website Title/Logo Goes Here --></span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
@@ -32,7 +32,6 @@
             <a class="mdl-navigation__link" href="/">Home</a>
             {% if user.is_authenticated %}
                 <a class="mdl-navigation__link" href="/reports">All Posts</a>
-                <a class="mdl-navigation__link" href="{% url 'new' %}">New Post</a>
                 <a class="mdl-navigation__link" href="/auth/logout"> Logout ({{ user.username }}) </a>
             {% else %}
                 <a class="mdl-navigation__link" href="/auth/login"> Login </a>

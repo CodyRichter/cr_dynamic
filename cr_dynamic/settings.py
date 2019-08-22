@@ -131,5 +131,5 @@ AUTH_USER_MODEL = 'users.SiteUser'
 # Login Redirect Routes
 #
 
-LOGIN_REDIRECT_URL = 'reports'
+LOGIN_REDIRECT_URL = '/reports'
 LOGOUT_REDIRECT_URL = 'index'

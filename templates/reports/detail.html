@@ -28,7 +28,7 @@
             <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
                  style="display: inline-block;">
                 <h3>{{ post.title }}</h3>
-                <p>Posted by {{ post.author }} on {{ post.release_date.astimezone }}</p>
+                <p>Posted by {{ post.author.get_username }} on {{ post.release_date.astimezone }}</p>
             </div>
 
             <div class="mdl-cell mdl-cell--1-col-tablet mdl-cell--1-col-phone mdl-cell--3-col-desktop"></div>

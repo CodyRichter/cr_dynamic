@@ -11,9 +11,9 @@ class SiteUserAdmin(UserAdmin):
     add_form = SiteUserCreationForm
     form = SiteUserChangeForm
     model = SiteUser
-    list_display = ['email', 'username',]
-    fieldsets = UserAdmin.fieldsets # + ((None, {'fields': ('custom_field',)}),)
-    add_fieldsets = UserAdmin.add_fieldsets # + ((None, {'fields': ('custom_field',)}),)
+    list_display = ['email', 'username', ]
+    fieldsets = UserAdmin.fieldsets + ((None, {'fields': ('role',)}),)
+    add_fieldsets = UserAdmin.add_fieldsets + ((None, {'fields': ('role',)}),)
 
 
 admin.site.register(SiteUser, SiteUserAdmin)

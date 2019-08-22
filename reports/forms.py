@@ -18,10 +18,3 @@ class PostForm(ModelForm):
         help_texts = {
             'image_link': 'This must be a link directly to the image file, not the page the image is on.',
         }
-
-
-class SiteUserCreationForm(UserCreationForm):
-
-    class Meta(UserCreationForm.Meta):
-        model = SiteUser
-        fields = UserCreationForm.Meta.fields #  + ('custom_field',)
