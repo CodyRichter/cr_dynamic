@@ -11,6 +11,19 @@
     <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
 </head>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {{ post.title }}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+    <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
+    <script src='{% static 'material/material.min.js' %}'></script>
+    <link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
+</head>
+
 <script>
     function change() {
         document.getElementById("release_date").value = new Date().toLocaleDateString()
@@ -26,11 +39,12 @@
         <br>
         <br>
         <div class="mdl-grid" style="text-align: center">
-            <div class="mdl-cell mdl-cell--2-col">
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+            <div class="mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col"
+                 style="padding-left: 2vw; padding-right: 2vw;">
+                <br>
+                <br>
 
-            </div>
-
-            <div class="mdl-cell mdl-cell--8-col">
                 <h3>Create New Post</h3>
                 <form method="post">
                     {% csrf_token %}
@@ -39,7 +53,8 @@
                     <textarea class="mdl-textfield__input" type="text" id="description" name="description"
                               placeholder="Description"
                               required></textarea>
-                    <input class="normal-input mdl-textfield__input" id="image_link" name="image_link" placeholder="Image Link"
+                    <input class="normal-input mdl-textfield__input" id="image_link" name="image_link"
+                           placeholder="Image Link"
                            required><br>
                     <input class="normal-input mdl-textfield__input" id="release_date" name="release_date"
                            placeholder="Post Publishing Date"
@@ -67,10 +82,9 @@
                         {% endfor %}
                     {% endif %}
                 </form>
-            </div>
-
-            <div class="mdl-cell mdl-cell--2-col">
-
+            <br>
+            <br>
+            <br>
             </div>
         </div>
     </main>

@@ -1,3 +1,4 @@
+from django.contrib.auth.views import PasswordChangeView
 from django.urls import path
 
 from . import views

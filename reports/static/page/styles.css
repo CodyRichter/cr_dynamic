@@ -22,6 +22,10 @@ body {
     border-radius: 10em;
 }
 
+.button-inline {
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
 
 .wide-input {
     width: 70vw;

@@ -12,7 +12,7 @@ from reports.models import Post
 def index(request):
     cdt = datetime.datetime.now()
     # Create specific lists of posts to display on home page
-    pinned = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date').filter(pinned=True)
+    pinned = Post.objects.all().filter(release_date__lte=datetime.date.today()).order_by('release_date').filter(pinned=True)
     post_today = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date').filter(pinned=False)
     post_past = Post.objects.all().filter(release_date__lt=datetime.date.today()).order_by('release_date').filter(pinned=False)
     my_post = Post.objects.all().filter(author=request.user).order_by('release_date')
