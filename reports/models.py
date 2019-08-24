@@ -18,3 +18,17 @@ class Post(models.Model):
 
     def __string__(self):
         return self.title
+
+
+class Interaction(models.Model):
+    title = models.CharField(max_length=64)
+    description = models.CharField(max_length=256)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField('timestamp')
+
+    def __str__(self):
+        return self.title
+
+    def __string__(self):
+        return self.title
+

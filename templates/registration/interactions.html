@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {{ post.title }}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+    <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
+    <script src='{% static 'material/material.min.js' %}'></script>
+    <link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
+</head>
+
+<body>
+
+<div class="mdl-layout mdl-js-layout">
+    {% include '_header.html' %}
+    <main class="mdl-layout__content">
+        <br>
+        <br>
+        <br>
+        <div class="mdl-grid" style="text-align: center">
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+            <div class="mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col"
+                 style="padding-left: 2vw; padding-right: 2vw;">
+                <div class="mdl-color-text--grey-500">
+                    <p>Hello, {{ user.get_username }}! Here's some of your recent account history.</p>
+                </div>
+                <h3>Interactions</h3>
+                <br>
+                <br>
+                <br>
+                {% for inter in interaction_list %}
+                    <span>{{ inter.timestamp }}&nbsp&nbsp|&nbsp&nbsp{{ inter.title }}&nbsp&nbsp|&nbsp&nbsp{{ inter.description }}</span>
+                    <hr>
+                {% endfor %}
+                <h6><i>Showing Latest 25 Interactions.</i></h6>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </main>
+    {% include '_footer.html' %}
+</div>
+</body>
+</html>

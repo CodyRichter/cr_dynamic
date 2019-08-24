@@ -1,20 +1,23 @@
 import datetime
 
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from reports.forms import PostForm
-from reports.models import Post
+from reports.models import Post, Interaction
 
 
 @login_required(login_url='/auth/login')
 def index(request):
     cdt = datetime.datetime.now()
     # Create specific lists of posts to display on home page
-    pinned = Post.objects.all().filter(release_date__lte=datetime.date.today()).order_by('release_date').filter(pinned=True)
-    post_today = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date').filter(pinned=False)
-    post_past = Post.objects.all().filter(release_date__lt=datetime.date.today()).order_by('release_date').filter(pinned=False)
+    pinned = Post.objects.all().filter(release_date__lte=datetime.date.today()).order_by('release_date').filter(
+        pinned=True)
+    post_today = Post.objects.all().filter(release_date__date=datetime.date.today()).order_by('release_date').filter(
+        pinned=False)
+    post_past = Post.objects.all().filter(release_date__lt=datetime.date.today()).order_by('release_date').filter(
+        pinned=False)
     my_post = Post.objects.all().filter(author=request.user).order_by('release_date')
     context = {'post_today': post_today,
                'post_past': post_past,
@@ -30,6 +33,8 @@ def detail(request, post_id):
     if post.release_date.astimezone() >= datetime.datetime.now().astimezone() and post.author != request.user:
         messages.error(request, 'You do not have permission to view this post.')
         return redirect('/reports/')
+    Interaction(title="View Post: " + str(post_id), description="Viewed Post.", user=request.user,
+                timestamp=datetime.datetime.now().astimezone()).save()
     return render(request, 'reports/detail.html', {'post': post})
 
 
@@ -40,9 +45,12 @@ def new(request):
         formset.instance.author = request.user
         if formset.is_valid():
             formset.save()
+            Interaction(title="Create Post: " + str(formset.instance.title), description="Created a new post.",
+                        user=request.user, timestamp=datetime.datetime.now().astimezone()).save()
             return redirect('/reports/' + str(formset.instance.id))
     else:
         formset = PostForm()
+
     return render(request, 'reports/new.html', {'formset': formset})
 
 
@@ -57,6 +65,8 @@ def edit(request, post_id):
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
+            Interaction(title="Edited Post: " + str(form.instance.title), description="Edited existing post.",
+                        user=request.user, timestamp=datetime.datetime.now().astimezone()).save()
             return redirect('/reports/' + str(post_id))
     else:
         form = PostForm(instance=post)
@@ -71,6 +81,8 @@ def delete(request, post_id):
         return redirect('/reports/')
     post.delete()
     messages.success(request, 'Post successfully deleted.')
+    Interaction(title="Delete Post: " + str(post_id), description="Deleted an existing post.",
+                user=request.user, timestamp=datetime.datetime.now().astimezone()).save()
     return redirect('/reports/')
 
 
