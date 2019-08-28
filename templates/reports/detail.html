@@ -67,12 +67,14 @@
                 <br>
                 <br>
                 <br>
-                <img src="{{ post.image_link }}" alt="Post Image">
+                {% if post.image_link %}
+                    <img src="{{ post.image_link }}" alt="Post Image">
 
-                <br>
-                <br>
-                <br>
-                <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                {% endif %}
             </div>
         </div>
     </main>

@@ -8,7 +8,7 @@ from users.models import SiteUser
 class Post(models.Model):
     title = models.CharField(max_length=32)
     description = models.CharField(max_length=5000)
-    image_link = models.CharField(max_length=256)
+    image_link = models.CharField(max_length=256, blank=True, default="")
     release_date = models.DateTimeField('release date')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pinned = models.BooleanField(default=False)
