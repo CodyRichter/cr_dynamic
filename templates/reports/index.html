@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cody Richter: Root Navigation</title>
+    <title>{{ SITE_NAME }}: Posts</title>
 
     {% load static %}
     <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
@@ -27,9 +27,7 @@
 
                 <div class="mdl-tabs__panel is-active" id="all-posts-panel">
 
-                    <!--
-                        Pinned Posts
-                    -->
+                    <!-- Pinned Posts -->
                     {% if pinned %}
                         <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
                              style="display: inline-block">
@@ -37,26 +35,12 @@
                         </div>
 
                         {% for post in pinned %}
-                            <div class="mdl-cell mdl-cell--3-col mdl-cell--middle" style="display: inline-block">
-                                <a class="mdl-navigation__link" href="{% url 'detail' post.id %}">
-                                    <div class="mdl-card mdl-shadow--2dp" style="display: inline-block">
-                                        <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
-                                            <h2 class="mdl-card__title-text">{{ post.title }}</h2>
-                                        </div>
-                                        <div class="mdl-card__supporting-text">
-                                            Posted by {{ post.author.get_username }} on {{ post.release_date.astimezone.date }}
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
+                            {% include 'reports/partial/_post-display.html' %}
                         {% endfor %}
                     {% endif %}
 
 
-                    <!--
-                        Today's Posts
-                    -->
+                    <!-- Today's Posts -->
                     {% if post_today %}
                         <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
                              style="display: inline-block">
@@ -64,26 +48,12 @@
                         </div>
 
                         {% for post in post_today %}
-                            <div class="mdl-cell mdl-cell--3-col mdl-cell--middle" style="display: inline-block">
-                                <a class="mdl-navigation__link" href="{% url 'detail' post.id %}">
-                                    <div class="mdl-card mdl-shadow--2dp" style="display: inline-block">
-                                        <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
-                                            <h2 class="mdl-card__title-text">{{ post.title }}</h2>
-                                        </div>
-                                        <div class="mdl-card__supporting-text">
-                                            Posted by {{ post.author.get_username }} on {{ post.release_date.astimezone.date }}
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
+                            {% include 'reports/partial/_post-display.html' %}
                         {% endfor %}
                     {% endif %}
 
 
-                    <!--
-                        Previous Posts
-                    -->
+                    <!-- Previous Posts -->
                     {% if post_past %}
                         <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
                              style="display: inline-block">
@@ -91,27 +61,13 @@
                         </div>
 
                         {% for post in post_past %}
-                            <div class="mdl-cell mdl-cell--3-col" style="display: inline-block;">
-                                <a class="mdl-navigation__link" href="{% url 'detail' post.id %}">
-                                    <div class="mdl-card mdl-shadow--2dp" style="display: inline-block">
-                                        <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
-                                            <h2 class="mdl-card__title-text">{{ post.title }}</h2>
-                                        </div>
-                                        <div class="mdl-card__supporting-text">
-                                            Posted by {{ post.author.get_username }} on {{ post.release_date.astimezone.date }}
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
+                            {% include 'reports/partial/_post-display.html' %}
                         {% endfor %}
                     {% endif %}
 
                 </div>
                 <div class="mdl-tabs__panel" id="my-posts-panel">
-                    <!--
-                        My Posts
-                    -->
+                    <!-- My Posts -->
                     {% if my_post %}
                         <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
                              style="display: inline-block">
@@ -119,29 +75,17 @@
                         </div>
 
                         {% for post in my_post %}
-                            <div class="mdl-cell mdl-cell--3-col" style="display: inline-block">
-                                <a class="mdl-navigation__link" href="{% url 'detail' post.id %}">
-                                    <div class="mdl-card mdl-shadow--2dp" style="display: inline-block">
-                                        <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
-                                            <h2 class="mdl-card__title-text">{{ post.title }}</h2>
-                                        </div>
-                                        <div class="mdl-card__supporting-text">
-                                            Posted by {{ post.author.get_username }} on {{ post.release_date.astimezone.date }}
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
+                            {% include 'reports/partial/_post-display.html' %}
                         {% endfor %}
                     {% endif %}
 
                 </div>
             </div>
         </div>
-            <a href="{% url 'new' %}" class="mdl-navigation__link add-post-button">
-                <button class="mdl-button mdl-button--primary mdl-button--fab mdl-js-ripple-effect"><i
-                        class="material-icons">add</i></button>
-            </a>
+        <a href="{% url 'new' %}" class="mdl-navigation__link add-post-button">
+            <button class="mdl-button mdl-button--primary mdl-button--fab mdl-js-ripple-effect"><i
+                    class="material-icons">add</i></button>
+        </a>
     </main>
 
     {% include '_footer.html' %}

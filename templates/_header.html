@@ -14,30 +14,34 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
+
+                <a class="mdl-navigation__link" href="{% url 'home' %}">Home</a>
+
                 {% if user.is_authenticated %}
+                    <a class="mdl-navigation__link" href="{% url 'index' %}">All Posts</a>
+                    <a class="mdl-navigation__link" href="{% url 'logout' %}"> Logout ({{ user.username }}) </a>
                     <div class="material-icons mdl-badge mdl-badge--overlap"><a href="{% url 'profile' user.id %}"
                                                                                 class="mdl-button--icon"
                                                                                 style="text-decoration: none">account_box</a>
                     </div>
                 {% else %}
-                    <div></div>
+                    <a class="mdl-navigation__link" href="{% url 'login' %}"> Login </a>
                 {% endif %}
             </nav>
         </div>
     </header>
-    <div class="mdl-layout__drawer">
+    <div class="mdl-layout__drawer mdl-layout--small-screen-only">
         <span class="mdl-layout-title">Navigation</span>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="/">Home</a>
+            <a class="mdl-navigation__link" href="{% url 'home' %}">Home</a>
             {% if user.is_authenticated %}
-                <a class="mdl-navigation__link" href="/reports">All Posts</a>
-                <a class="mdl-navigation__link" href="/auth/logout"> Logout ({{ user.username }}) </a>
+                <a class="mdl-navigation__link" href="{% url 'index' %}">All Posts</a>
+                <a class="mdl-navigation__link" href="{% url 'profile' user.id %}"> My Account </a>
+                <a class="mdl-navigation__link" href="{% url 'logout' %}"> Logout ({{ user.username }}) </a>
             {% else %}
-                <a class="mdl-navigation__link" href="/auth/login"> Login </a>
+                <a class="mdl-navigation__link" href="{% url 'login' %}"> Login </a>
             {% endif %}
         </nav>
     </div>
-    <main class="mdl-layout__content">
-        <div class="page-content"><!-- Your content goes here --></div>
-    </main>
+
 </div>
