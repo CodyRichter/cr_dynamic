@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+
     <meta charset="UTF-8">
     <title>{{ SITE_NAME }}: Login</title>
 
     {% if user.is_authenticated %}
         <meta http-equiv="REFRESH" content="0;url=/">
     {% endif %}
-
-    {% load static %}
-    <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
-    <script src='{% static 'material/material.min.js' %}'></script>
-    <link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
-    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
 </head>
 
 <body>
@@ -57,7 +57,8 @@
                                        required>
                                 <br>
                                 <button type="submit"
-                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Create Account
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Create
+                                    Account
                                 </button>
 
                                 <br>
