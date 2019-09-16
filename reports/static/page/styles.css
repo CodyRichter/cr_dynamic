@@ -1,0 +1,36 @@
+body {
+    background-color: rgba(116, 128, 125, 0.28);
+}
+
+
+.homepage-background {
+    /*height: 100vh;*/
+    /*background-image: url("../images/github_logo.png");*/
+    /*background-attachment: fixed;*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+}
+
+.add-post-button {
+    position: fixed;
+    right: 4vw;
+    bottom: 17vh;
+}
+
+.login-card {
+    border-radius: 10em;
+}
+
+.button-inline {
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.wide-input {
+    width: 70vw;
+}
+
+.normal-input {
+    width: 55vw;
+}

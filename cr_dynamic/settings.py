@@ -17,7 +17,6 @@ from django.conf.global_settings import AUTH_USER_MODEL
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -29,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-NAME = 'LambChat'
+NAME = 'ChatApp'
 
 # Application definition
 
@@ -125,8 +124,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 AUTH_USER_MODEL = 'users.SiteUser'
 
