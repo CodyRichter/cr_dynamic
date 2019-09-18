@@ -1,4 +1,5 @@
-import datetime
+import pytz
+from django.utils import timezone
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,15 +11,18 @@ from reports.models import Post, Interaction
 
 @login_required(login_url='/auth/login')
 def index(request):
-    cdt = datetime.datetime.now()
+    current_tz = pytz.timezone('US/Eastern')  # UTC + 4
+    timezone.activate(current_tz)
+
+    cdt = timezone.localtime(timezone.now()).today()
     # Create specific lists of posts to display on home page
-    pinned = Post.objects.all().filter(release_date__lte=datetime.datetime.now().astimezone().today()).order_by('release_date').filter(
+    pinned = Post.objects.all().filter(release_date__lte=timezone.localtime(timezone.now()).today()).order_by('release_date').filter(
         pinned=True)
-    post_today = Post.objects.all().filter(release_date__date=datetime.datetime.now().astimezone().today()).order_by('release_date').filter(
+    post_today = Post.objects.all().filter(release_date__date=timezone.localtime(timezone.now()).today()).order_by('release_date').filter(
         pinned=False)
-    post_past = Post.objects.all().filter(release_date__lt=datetime.datetime.now().astimezone().today()).order_by('-release_date').filter(
+    post_past = Post.objects.all().filter(release_date__lt=timezone.localtime(timezone.now()).today()).order_by('-release_date').filter(
         pinned=False)
-    my_post = Post.objects.all().filter(author=request.user).order_by('release_date')
+    my_post = Post.objects.all().filter(author=request.user).order_by('-release_date')
     context = {'post_today': post_today,
                'post_past': post_past,
                'my_post': my_post,
@@ -29,24 +33,30 @@ def index(request):
 
 @login_required(login_url='/auth/login')
 def detail(request, post_id):
+    current_tz = pytz.timezone('US/Eastern')  # UTC + 4
+    timezone.activate(current_tz)
+
     post = get_object_or_404(Post, pk=post_id)
-    if post.release_date.astimezone() >= datetime.datetime.now().astimezone() and post.author != request.user:
+    if post.release_date.astimezone() >= timezone.localtime(timezone.now()) and post.author != request.user:
         messages.error(request, 'You do not have permission to view this post.')
         return redirect('/reports/')
     Interaction(title="View Post: " + str(post_id), description="Viewed Post.", user=request.user,
-                timestamp=datetime.datetime.now().astimezone()).save()
+                timestamp=timezone.localtime(timezone.now())).save()
     return render(request, 'reports/detail.html', {'post': post})
 
 
 @login_required(login_url='/auth/login')
 def new(request):
+    current_tz = pytz.timezone('US/Eastern')  # UTC + 4
+    timezone.activate(current_tz)
+
     if request.method == 'POST':
         formset = PostForm(request.POST, request.FILES)
         formset.instance.author = request.user
         if formset.is_valid():
             formset.save()
             Interaction(title="Create Post: " + str(formset.instance.title), description="Created a new post.",
-                        user=request.user, timestamp=datetime.datetime.now().astimezone()).save()
+                        user=request.user, timestamp=timezone.localtime(timezone.now())).save()
             return redirect('/reports/' + str(formset.instance.id))
     else:
         formset = PostForm()
@@ -56,6 +66,9 @@ def new(request):
 
 @login_required(login_url='/auth/login')
 def edit(request, post_id):
+    current_tz = pytz.timezone('US/Eastern')  # UTC + 4
+    timezone.activate(current_tz)
+
     post = get_object_or_404(Post, pk=post_id)
     if post.author != request.user and not request.user.is_staff:
         messages.error(request, 'You do not have permission to edit this post.')
@@ -66,7 +79,7 @@ def edit(request, post_id):
             post = form.save(commit=False)
             post.save()
             Interaction(title="Edited Post: " + str(form.instance.title), description="Edited existing post.",
-                        user=request.user, timestamp=datetime.datetime.now().astimezone()).save()
+                        user=request.user, timestamp=timezone.localtime(timezone.now())).save()
             return redirect('/reports/' + str(post_id))
     else:
         form = PostForm(instance=post)
@@ -75,6 +88,9 @@ def edit(request, post_id):
 
 @login_required(login_url='/auth/login')
 def delete(request, post_id):
+    current_tz = pytz.timezone('US/Eastern')  # UTC + 4
+    timezone.activate(current_tz)
+
     post = Post.objects.get(id=post_id)
     if post.author != request.user and not request.user.is_staff:
         messages.error(request, 'You do not have permission to delete this post.')
@@ -82,12 +98,15 @@ def delete(request, post_id):
     post.delete()
     messages.success(request, 'Post successfully deleted.')
     Interaction(title="Delete Post: " + str(post_id), description="Deleted an existing post.",
-                user=request.user, timestamp=datetime.datetime.now().astimezone()).save()
+                user=request.user, timestamp=timezone.localtime(timezone.now())).save()
     return redirect('/reports/')
 
 
 @login_required(login_url='/auth/login')
 def pin(request, post_id):
+    current_tz = pytz.timezone('US/Eastern')  # UTC + 4
+    timezone.activate(current_tz)
+
     post = get_object_or_404(Post, pk=post_id)
     if not request.user.is_staff:
         messages.error(request, 'You do not have permission to perform this action.')

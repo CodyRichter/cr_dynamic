@@ -26,7 +26,7 @@ SECRET_KEY = 'b_b602@5(ub(kg+u!d)cy*s@qiey$#$pz(#lxhq^$-3da)poj!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['165.227.198.84', 'codyrichter.net', 'localhost', ]
 
 NAME = 'ChatApp'
 
