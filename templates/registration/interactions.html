@@ -1,48 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+{% extends 'base.html' %}
 
-    <meta charset="UTF-8">
-    <title> {{ SITE_NAME }}: Interactions</title>
-</head>
+{% block title %}Interactions{% endblock title %}
 
-<body>
+{% block content %}
 
-<div class="mdl-layout mdl-js-layout">
-    {% include '_header.html' %}
-    <main class="mdl-layout__content">
-        <br>
-        <br>
-        <br>
-        <div class="mdl-grid" style="text-align: center">
-            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-            <div class="mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col"
-                 style="padding-left: 2vw; padding-right: 2vw;">
-                <div class="mdl-color-text--grey-500">
-                    <p>Hello, {{ user.get_username }}! Here's some of your recent account history.</p>
-                </div>
-                <h3>Interactions</h3>
-                <br>
-                <br>
-                <br>
-                {% for inter in interaction_list %}
-                    <span>{{ inter.timestamp }}&nbsp&nbsp|&nbsp&nbsp{{ inter.title }}&nbsp&nbsp|&nbsp&nbsp{{ inter.description }}</span>
-                    <hr>
-                {% endfor %}
-                <h6><i>Showing Latest 25 Interactions.</i></h6>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
-        </div>
-    </main>
-    {% include '_footer.html' %}
-</div>
-</body>
-</html>
+
+    <div class="container text-center">
+
+        <h3>Hello {{ user.username }}</h3>
+        <h4>Let's take a look at what you've accomplished!</h4>
+
+        <hr class="mb-4">
+        <table class="border-0 table">
+        {% for inter in interaction_list %}
+            <tr>
+                <td>
+                    {{ inter.timestamp }}
+                </td>
+
+                <td>
+                    {{ inter.title }}
+                </td>
+
+                <td>
+                    {{ inter.description }}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+
+
+    </div>
+
+{% endblock content %}
