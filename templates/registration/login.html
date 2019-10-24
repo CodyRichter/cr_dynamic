@@ -1,85 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+{% extends 'base.html' %}
 
-    <meta charset="UTF-8">
-    <title>{{ SITE_NAME }}: Login</title>
+{% block title %}Login{% endblock title %}
+{% block content %}
 
-    {% if user.is_authenticated %}
-        <meta http-equiv="REFRESH" content="0;url=/">
-    {% endif %}
-</head>
-
-<body>
-
-<div class="mdl-layout mdl-js-layout">
-    {% include '_header.html' %}
-    <main class="mdl-layout__content">
-        <br>
-        <br>
-        <br>
-        <div class="mdl-grid" style="text-align: center">
-            <div class="mdl-cell mdl-cell--12-col" style="display: inline-block">
-            </div>
-
-            <div class="mdl-cell mdl-cell--4-col">
-
-            </div>
-            <div class="mdl-cell mdl-cell--4-col" style="padding-top: 15vh">
-
-                <div class="mdl-card mdl-shadow--2dp" style="display: inline-block; border-radius: 1em;">
-                    <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
-                        <h2 class="mdl-card__title-text">Sign In</h2>
+    <div class="text-center justify-content-center container" style="max-width: 970px;">
+        <div class="container">
+            <form class="form-signin" method="post">
+                {% csrf_token %}
+                <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+                <input type="text"  class="form-control mt-3 mb-3" id="inputEmail" name="username" placeholder="Username" required="" autofocus="">
+                <input type="password" name="password" id="inputPass" class="form-control mb-3" placeholder="Password" required="">
+                <button class="btn btn-lg btn-primary btn-block mb-4" type="submit">Sign in</button>
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Incorrect username or password.
                     </div>
-                    <div class="mdl-card__supporting-text">
-                        <form method="post" class="text-content">
-                            {% csrf_token %}
-                            <input class="mdl-textfield__input" id="inputEmail" name="username" placeholder="Username"
-                                   required>
-                            <br>
-                            <input class="mdl-textfield__input" type="password" name="password" id="inputPass"
-                                   placeholder="Password"
-                                   required>
-                            <br>
-                            <button type="submit"
-                                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Login
-                            </button>
-
-                            <div class="form-error">
-                                {% if form.errors %}
-                                    Incorrect username or password.
-                                {% endif %}
-                            </div>
-                            <br>
-                            <a class="mdl-navigation__link" href="{% url 'signup' %}">
-                                Create Account
-                            </a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="mdl-cell mdl-cell--4-col">
-
-            </div>
-
-            <div class="mdl-cell mdl-cell--4-col">
-
-            </div>
-            <div class="mdl-cell mdl-cell--4-col">
-
-            </div>
-            <div class="mdl-cell mdl-cell--4-col">
-
-            </div>
-
+                {% endif %}
+            </form>
         </div>
-    </main>
-    {% include '_footer.html' %}
-</div>
-</body>
-</html>
+    </div>
+
+{% endblock content %}
