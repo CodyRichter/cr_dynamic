@@ -1,96 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+{% extends 'base.html' %}
 
-    <meta charset="UTF-8">
-    <title>{{ SITE_NAME }}: Posts</title>
-</head>
+{% block title %}Posts{% endblock title %}
+{% block content %}
 
-<body>
+<div class="container text-center">
 
-<div class="mdl-layout mdl-js-layout">
-    {% include '_menu_bar.html' %}
-    <main class="mdl-layout__content">
-        <br>
-        <br>
-        <br>
-        <p>{{ cdt }}</p>
-        <div class="mdl-grid" style="text-align: center">
-            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                <div class="mdl-tabs__tab-bar">
-                    <a href="#all-posts-panel" class="mdl-tabs__tab is-active">All Posts</a>
-                    <a href="#my-posts-panel" class="mdl-tabs__tab">My Posts</a>
-                </div>
+    <ul class="nav nav-tabs justify-content-center mb-4">
+        <li class="active mr-5">
+            <a class="btn btn-primary active mr-5 btn-block" data-toggle="tab" href="#all">All Posts</a>
+        </li>
+        <li>
+            <a class="btn btn-primary btn-block mr-5" data-toggle="tab" href="#mine">My Posts</a>
+        </li>
+    </ul>
 
-                <div class="mdl-tabs__panel is-active" id="all-posts-panel">
-
-                    <!-- Pinned Posts -->
-                    {% if pinned %}
-                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
-                             style="display: inline-block">
-                            <h3>Pinned Posts</h3>
-                        </div>
-
-                        {% for post in pinned %}
-                            {% include 'reports/partial/_post-display.html' %}
-                        {% endfor %}
-                    {% endif %}
-
-
-                    <!-- Today's Posts -->
-                    {% if post_today %}
-                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
-                             style="display: inline-block">
-                            <h3>Today's Posts</h3>
-                        </div>
-
-                        {% for post in post_today %}
-                            {% include 'reports/partial/_post-display.html' %}
-                        {% endfor %}
-                    {% endif %}
-
-
-                    <!-- Previous Posts -->
-                    {% if post_past %}
-                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
-                             style="display: inline-block">
-                            <h3>All Posts</h3>
-                        </div>
-
-                        {% for post in post_past %}
-                            {% include 'reports/partial/_post-display.html' %}
-                        {% endfor %}
-                    {% endif %}
-
-                </div>
-                <div class="mdl-tabs__panel" id="my-posts-panel">
-                    <!-- My Posts -->
-                    {% if my_post %}
-                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"
-                             style="display: inline-block">
-                            <h3>My Posts</h3>
-                        </div>
-
-                        {% for post in my_post %}
-                            {% include 'reports/partial/_post-display.html' %}
-                        {% endfor %}
-                    {% endif %}
-
-                </div>
-            </div>
+    <div class="tab-content">
+        <div id="all" class="tab-pane active">
+            <h3>HOME</h3>
+            <p>All posts.</p>
         </div>
-        <a href="{% url 'new' %}" class="mdl-navigation__link add-post-button">
-            <button class="mdl-button mdl-button--primary mdl-button--fab mdl-js-ripple-effect"><i
-                    class="material-icons">add</i></button>
-        </a>
-    </main>
 
-    {% include '_footer.html' %}
+        <div id="mine" class="tab-pane fade">
+            <h3>My posts</h3>
+            <p>My posts</p>
+        </div>
+    </div>
+
 </div>
-</body>
-</html>
+
+{#    #}
+{#<div class="mdl-grid" style="text-align: center">#}
+{#            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">#}
+{#                <div class="mdl-tabs__tab-bar">#}
+{#                    <a href="#all-posts-panel" class="mdl-tabs__tab is-active">All Posts</a>#}
+{#                    <a href="#my-posts-panel" class="mdl-tabs__tab">My Posts</a>#}
+{#                </div>#}
+{##}
+{#                <div class="mdl-tabs__panel is-active" id="all-posts-panel">#}
+{##}
+{#                    <!-- Pinned Posts -->#}
+{#                    {% if pinned %}#}
+{#                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"#}
+{#                             style="display: inline-block">#}
+{#                            <h3>Pinned Posts</h3>#}
+{#                        </div>#}
+{##}
+{#                        {% for post in pinned %}#}
+{#                            {% include 'reports/partial/_post-display.html' %}#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{##}
+{##}
+{#                    <!-- Today's Posts -->#}
+{#                    {% if post_today %}#}
+{#                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"#}
+{#                             style="display: inline-block">#}
+{#                            <h3>Today's Posts</h3>#}
+{#                        </div>#}
+{##}
+{#                        {% for post in post_today %}#}
+{#                            {% include 'reports/partial/_post-display.html' %}#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{##}
+{##}
+{#                    <!-- Previous Posts -->#}
+{#                    {% if post_past %}#}
+{#                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"#}
+{#                             style="display: inline-block">#}
+{#                            <h3>All Posts</h3>#}
+{#                        </div>#}
+{##}
+{#                        {% for post in post_past %}#}
+{#                            {% include 'reports/partial/_post-display.html' %}#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{##}
+{#                </div>#}
+{#                <div class="mdl-tabs__panel" id="my-posts-panel">#}
+{#                    <!-- My Posts -->#}
+{#                    {% if my_post %}#}
+{#                        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"#}
+{#                             style="display: inline-block">#}
+{#                            <h3>My Posts</h3>#}
+{#                        </div>#}
+{##}
+{#                        {% for post in my_post %}#}
+{#                            {% include 'reports/partial/_post-display.html' %}#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <a href="{% url 'new' %}" class="mdl-navigation__link add-post-button">#}
+{#            <button class="mdl-button mdl-button--primary mdl-button--fab mdl-js-ripple-effect"><i#}
+{#                    class="material-icons">add</i></button>#}
+{#        </a>#}
+{% endblock content %}
