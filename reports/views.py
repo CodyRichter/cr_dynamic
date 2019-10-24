@@ -5,28 +5,24 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
+from cr_dynamic.helpers import now
 from reports.forms import PostForm
 from reports.models import Post, Interaction
 
 
 @login_required(login_url='/auth/login')
 def index(request):
-    current_tz = pytz.timezone('US/Eastern')  # UTC + 4
-    timezone.activate(current_tz)
-
-    cdt = timezone.localtime(timezone.now()).today()
     # Create specific lists of posts to display on home page
-    pinned = Post.objects.all().filter(release_date__lte=timezone.localtime(timezone.now()).today()).order_by('release_date').filter(
-        pinned=True)
-    post_today = Post.objects.all().filter(release_date__date=timezone.localtime(timezone.now()).today()).order_by('release_date').filter(
+    pinned = Post.objects.all().filter(release_date__lte=now()).order_by('release_date').filter(pinned=True)
+    post_today = Post.objects.all().filter(release_date__lte=now()).order_by('release_date').filter(
         pinned=False)
-    post_past = Post.objects.all().filter(release_date__lt=timezone.localtime(timezone.now()).today()).order_by('-release_date').filter(
+    post_past = Post.objects.all().filter(release_date__lte=now()).order_by('-release_date').filter(
         pinned=False)
     my_post = Post.objects.all().filter(author=request.user).order_by('-release_date')
     context = {'post_today': post_today,
                'post_past': post_past,
                'my_post': my_post,
-               'cdt': cdt,
+               'cdt': now(),
                'pinned': pinned}
     return render(request, 'reports/index.html', context)
 
