@@ -1,84 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+{% extends 'base.html' %}
 
-    <meta charset="UTF-8">
-    <title>{{ SITE_NAME }}: {{ post.title }}</title>
-</head>
+{% block title %}{{ post.title }}{% endblock title %}
 
-<body>
+{% block content %}
 
-<div class="mdl-layout mdl-js-layout">
-    {% include '_header.html' %}
-    <main class="mdl-layout__content">
-        <br>
-        <br>
-        <br>
-        <div class="mdl-grid" style="text-align: center">
-            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-            <div class="mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col"
-                 style="padding-left: 2vw; padding-right: 2vw;">
-                <div class="mdl-color-text--grey-500">
-                    <p>Posted by {{ post.author.get_username }} on {{ post.release_date.astimezone }}</p>
-                </div>
-                <h3>{{ post.title }}</h3>
-                {% if post.author == user or user.is_staff %}
-                    <a class="mdl-navigation__link" href="{% url 'edit' post.pk %}">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-inline">
-                            Edit Post
-                        </button>
-                    </a>
-                    &nbsp &nbsp &nbsp
-                    <a class="mdl-navigation__link" href="{% url 'delete' post.pk %}">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete Post
-                        </button>
-                    </a>
-                    &nbsp &nbsp &nbsp
-                {% endif %}
-                {% if post.pinned and user.is_staff %}
+<div class="container">
 
-                    <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-inline">
-                            Unpin Post
-                        </button>
-                    </a>
+    <div class="container row">
+        <h1 class="mt-4">Post Title</h1>
+    </div>
 
-                {% elif not post.pinned and user.is_staff %}
+    <div class="container row mb-2">
+        <p class="lead">
+          by
+          <a href="#">Start Bootstrap</a>
+            on {{ post.release_date.astimezone }}
+        </p>
+    </div>
 
-                    <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-inline">
-                            Pin Post
-                        </button>
-                    </a>
+    {% if post.author == user or user.is_staff %}
+        <div class="container row mb-4">
+            <a class="mdl-navigation__link" href="{% url 'edit' post.pk %}">
+                <button class="btn btn-primary btn-block">
+                    Edit Post
+                </button>
+            </a>
+            &nbsp &nbsp &nbsp
+            <a class="mdl-navigation__link" href="{% url 'delete' post.pk %}">
+                <button class="btn btn-block btn-warning">Delete Post
+                </button>
+            </a>
+            &nbsp &nbsp &nbsp
+            {% if post.pinned and user.is_staff %}
 
-                {% endif %}
+                <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
+                    <button class="btn btn-primary btn-block">
+                    Unpin Post
+                    </button>
+                </a>
 
-                <br>
-                <br>
-                <br>
+            {% elif not post.pinned and user.is_staff %}
 
-                <p>{{ post.description | linebreaks }}</p>
+                <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
+                    <button class="btn btn-primary btn-block">
+                    Pin Post
+                    </button>
+                </a>
 
-                <br>
-                <br>
-                <br>
-                {% if post.image_link %}
-                    <img src="{{ post.image_link }}" alt="Post Image">
-
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                {% endif %}
-            </div>
+            {% endif %}
         </div>
-    </main>
-    {% include '_footer.html' %}
+    {% endif %}
+
+    {% if post.image_link %}
+        <div class="container row">
+            <img class="img-fluid rounded" src="{{ post.image_link }}" alt="Post Image">
+        </div>
+    {% endif %}
+
+    <div class="container row">
+        <p>{{ post.description }}</p>
+    </div>
 </div>
-</body>
-</html>
+
+{% endblock content %}
