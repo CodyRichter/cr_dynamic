@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}Login{% endblock title %}
+
 {% block content %}
 
-    <div class="text-center justify-content-center container" style="max-width: 970px;">
+    <div class="text-center justify-content-center container">
         <div class="container">
             <form class="form-signin" method="post">
                 {% csrf_token %}
