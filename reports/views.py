@@ -36,7 +36,7 @@ def detail(request, post_id):
     if post.release_date.astimezone() >= timezone.localtime(timezone.now()) and post.author != request.user:
         messages.error(request, 'You do not have permission to view this post.')
         return redirect('/reports/')
-    Interaction(title="View Post: " + str(post_id), description="Viewed Post.", user=request.user,
+    Interaction(title="View Post: " + str(post.title), description="Viewed Post.", user=request.user,
                 timestamp=timezone.localtime(timezone.now())).save()
     return render(request, 'reports/detail.html', {'post': post})
 
