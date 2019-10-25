@@ -1,9 +1,8 @@
-<div class="card col-xs">
-    <a href="{% url 'detail' post.id %}">
+<div class="card col-sm-4 mb-3">
+    <a href="{% url 'detail' post.id %}" class="stretched-link"></a>
         <h5 class="card-header">{{ post.title }}</h5>
         <div class="card-body">
         Posted by {{ post.author.get_username }}
         on {{ post.release_date.astimezone.date }}
         </div>
-    </a>
 </div>
