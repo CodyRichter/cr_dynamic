@@ -1,98 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+{% extends 'base.html' %}
 
-    <meta charset="UTF-8">
-    <title>{{ SITE_NAME }}: Edit {{ post.title }}</title>
-</head>
+{% block title %}Edit Post{% endblock title %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> {{ post.title }}</title>
+    <div class="container text-center">
+        <h3>Edit Post</h3>
 
-    {% load static %}
-    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
-    <link rel="stylesheet" href='{% static 'material/material.min.css' %}'>
-    <script src='{% static 'material/material.min.js' %}'></script>
-    <link rel="stylesheet" href='{% static 'material/material-icons.css' %}'>
-</head>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" class="form-control mt-3 mb-3" id="title" name="title" value="{{ form.title.value }}"
+                   placeholder="Post Title" required autofocus>
 
-<script>
-    function change() {
-        document.getElementById("release_date").value = new Date().toLocaleDateString()
-    }
-</script>
+            <textarea type="text" class="form-control mt-3 mb-3" id="description" name="description"
+                      placeholder="Post Contents" required>{{ form.description.value }}</textarea>
 
-<body>
+            <input type="text" class="form-control mt-3 mb-3" id="image_link" name="image_link" value="{{ form.image_link.value }}"
+                   placeholder="Image Link" autofocus>
 
-<div class="mdl-layout mdl-js-layout">
-    {% include '_header.html' %}
-    <main class="mdl-layout__content">
-        <br>
-        <br>
-        <br>
-        <div class="mdl-grid" style="text-align: center">
-            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-            <div class="mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col"
-                 style="padding-left: 2vw; padding-right: 2vw;">
-                <br>
-                <br>
+            <div class="input-group mt-3 mb-3">
+                <input type="date" class="form-control mr-3" id="release_date" name="release_date" value="{{ form.release_date.isoformat.value }}"
+                       placeholder="Publishing Date" required autofocus>
 
-                <h3>Edit Post</h3>
-                <form method="post">
-                    {% csrf_token %}
+               <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" onclick="change()">Today</button>
+               </span>
+            </div>
 
-                    <input type="text" class="mdl-textfield__input wide-input" id="title" name="title"
-                           placeholder="Title"
-                           value="{{ form.title.value }}" required><br>
+            <button type="submit" class="btn btn-primary">
+                Update Post
+            </button>
 
-                    <textarea class="mdl-textfield__input" type="text" id="description" name="description"
-                              placeholder="Description"
-                              required>{{ form.description.value }}</textarea>
-
-                    <input class="normal-input mdl-textfield__input" id="image_link" name="image_link"
-                           placeholder="Image Link" value="{{ form.image_link.value }}"><br>
-
-                    <input class="normal-input mdl-textfield__input" id="release_date" name="release_date"
-                           placeholder="Post Publishing Date"
-                           required>
-                    <br>
-                    <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" onclick="change()"
-                           type="button" value="Today">
-                    <br>
-                    <br>
-
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                        Update Post
-                    </button>
-                    <br>
-
-                    {% if form.errors %}
-                        <p class="form-error">Unable To Edit Post:</p>
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <p class="form-error">{{ error|escape }}</p>
-                            {% endfor %}
-                        {% endfor %}
-                        {% for error in form.non_field_errors %}
+            {% if formset.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for field in formset %}
+                        {% for error in field.errors %}
                             <p class="form-error">{{ error|escape }}</p>
                         {% endfor %}
-                    {% endif %}
-                </form>
-                <br>
-                <br>
-                <br>
-            </div>
-        </div>
-    </main>
-    {% include '_footer.html' %}
-</div>
-</body>
-</html>
+                    {% endfor %}
+                    {% for error in formset.non_field_errors %}
+                        <p class="form-error">{{ error|escape }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </form>
+
+    </div>
+
+{% endblock content %}
