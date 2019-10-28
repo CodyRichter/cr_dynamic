@@ -4,7 +4,6 @@
 {% block content %}
 
 <div class="container text-center">
-    <p class="lead">{{ cdt }}</p>
     <ul class="nav nav-tabs justify-content-center mb-4">
         <li class="active mr-3 ml-3 mb-2">
             <a class="btn btn-primary active mr-5 btn-block" data-toggle="tab" href="#all">All Posts</a>
@@ -18,8 +17,10 @@
         <!-- All Posts -->
         <div id="all" class="tab-pane active">
 
-
+        {% if pinned %}
         <h3 class="mb-3">Pinned Posts</h3>
+        {% endif %}
+
         <div class="row">
             {% for post in pinned %}
                 {% include 'reports/partial/_post-display.html' %}
