@@ -8,11 +8,15 @@
         <div class="container">
             <form class="form-signin" method="post">
                 {% csrf_token %}
-                <img class="mb-4" src="https://i.imgur.com/M7IJrvK.png" alt="" width="72" height="72">
+                <img class="mb-4" src="{{ LOGO_URL }}" alt="" width="72" height="72">
                 <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
                 <input type="text"  class="form-control mt-3 mb-3" id="inputEmail" name="username" placeholder="Username" required="" autofocus="">
                 <input type="password" name="password" id="inputPass" class="form-control mb-3" placeholder="Password" required="">
                 <button class="btn btn-lg btn-primary btn-block mb-4" type="submit">Sign in</button>
+                {% if ALLOW_NEW_USERS %}
+                    <a class="btn btn-primary btn-block" href="{% url 'signup' %}"> Create Account </a>
+                {% endif %}
+
                 {% if form.errors %}
                     <div class="alert alert-danger" role="alert">
                         Incorrect username or password.

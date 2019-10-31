@@ -1,10 +1,12 @@
 from pyexpat.errors import messages
 
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-
+from django.contrib import messages
+from cr_dynamic import settings
 from reports.models import Interaction
 from users.forms import SiteUserCreationForm
 from users.models import SiteUser
@@ -29,7 +31,19 @@ def interactions(request, user_id):
     return render(request, 'registration/interactions.html', context)
 
 
+def custom_login(request, **kwargs):
+    if request.user.is_authenticated():
+        messages.error(request, 'You are already logged in.')
+        return redirect('/')
+    else:
+        return login(request, kwargs)
+
 class SignUp(CreateView):
     form_class = SiteUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
+
+    def enabled(self, request, *args, **kwargs):
+        if not settings.ALLOW_NEW_USERS:
+            messages.error(self.request, 'New user registration is currently closed.')
+            return redirect('/auth/login')

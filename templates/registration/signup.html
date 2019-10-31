@@ -1,103 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href='{% static 'page/styles.css' %}'>
+{% extends 'base.html' %}
 
-    <meta charset="UTF-8">
-    <title>{{ SITE_NAME }}: Login</title>
+{% block title %}Change Password{% endblock title %}
 
-    {% if user.is_authenticated %}
-        <meta http-equiv="REFRESH" content="0;url=/">
-    {% endif %}
-</head>
+{% block content %}
 
-<body>
+    <div class="container">
+        <div class="container" style="max-width: 970px">
+            <form method="post">
 
-<div class="mdl-layout mdl-js-layout">
-    {% include '_header.html' %}
-    <main class="mdl-layout__content">
-        <br>
-        <br>
-        <br>
-        <div class="mdl-grid" style="text-align: center">
-            <div class="mdl-cell mdl-cell--12-col" style="display: inline-block">
-            </div>
+                {% csrf_token %}
 
-            <div class="mdl-cell mdl-cell--4-col">
+                <h2 class="mb-3 text-center">Create Account</h2>
 
-            </div>
-            <div class="mdl-cell mdl-cell--4-col" style="padding-top: 15vh">
-
-                <div class="mdl-card mdl-shadow--2dp" style="display: inline-block; border-radius: 1em;">
-                    <div class="mdl-card__title mdl-card--expand" style="display: inline-block">
-                        <h2 class="mdl-card__title-text">Sign Up</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        <form method="post" class="text-content">
-                            <form method="post" class="text-content">
-                                {% csrf_token %}
-                                <input class="mdl-textfield__input" id="username" name="username"
-                                       placeholder="Username"
-                                       required>
-                                <br>
-                                <input class="mdl-textfield__input" id="email" name="email"
-                                       placeholder="Email"
-                                       required>
-                                <br>
-                                <input class="mdl-textfield__input" type="password" name="password1" id="password1"
-                                       placeholder="Password"
-                                       required>
-                                <br>
-                                <input class="mdl-textfield__input" type="password" name="password2" id="password2"
-                                       placeholder="Confirm Password"
-                                       required>
-                                <br>
-                                <button type="submit"
-                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Create
-                                    Account
-                                </button>
-
-                                <br>
-                                <br>
-                                <div>
-                                    {% if form.errors %}
-                                        {% for field in form %}
-                                            {% for error in field.errors %}
-                                                <p class="form-error">{{ error|escape }}</p>
-                                            {% endfor %}
-                                        {% endfor %}
-                                        {% for error in form.non_field_errors %}
-                                            <p class="form-error">{{ error|escape }}</p>
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
-                            </form>
-                            <br>
-                        </form>
-                    </div>
+                <div class="form-group">
+                    <label for="username" class="bmd-label-floating">Username</label>
+                    <input class="form-control" type="text" name="username" autofocus required id="username">
                 </div>
-            </div>
-            <div class="mdl-cell mdl-cell--4-col">
 
-            </div>
+                <div class="form-group">
+                    <label for="email" class="bmd-label-floating">Email Address</label>
+                    <input class="form-control" type="text" name="email" required id="email">
+                </div>
 
-            <div class="mdl-cell mdl-cell--4-col">
+                <div class="form-group">
+                    <label for="password1" class="bmd-label-floating">Password</label>
+                    <input class="form-control" type="password" name="password1" required id="password1">
+                    <small class="text-muted">Minimum of 8 characters.</small>
 
-            </div>
-            <div class="mdl-cell mdl-cell--4-col">
+                </div>
 
-            </div>
-            <div class="mdl-cell mdl-cell--4-col">
+                <div class="form-group">
+                    <label for="password2" class="bmd-label-floating">Confirm Password</label>
+                    <input class="form-control" type="password" name="password2" required id="password2">
+                </div>
 
-            </div>
 
+                <button type="submit" class="btn btn-primary btn-large btn-raised">
+                    Create Account
+                </button>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p class="form-error">{{ error|escape }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p class="form-error">{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
         </div>
-    </main>
-    {% include '_footer.html' %}
+    </div>
+
+{% endblock content %}
+
+
+<form method="post" class="text-content">
+    <form method="post" class="text-content">
+        {% csrf_token %}
+        <input class="mdl-textfield__input" id="username" name="username"
+               placeholder="Username"
+               required>
+        <br>
+        <input class="mdl-textfield__input" id="email" name="email"
+               placeholder="Email"
+               required>
+        <br>
+        <input class="mdl-textfield__input" type="password" name="password1" id="password1"
+               placeholder="Password"
+               required>
+        <br>
+        <input class="mdl-textfield__input" type="password" name="password2" id="password2"
+               placeholder="Confirm Password"
+               required>
+        <br>
+        <button type="submit"
+                class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Create
+            Account
+        </button>
+
+        <br>
+        <br>
+        <div>
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p class="form-error">{{ error|escape }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p class="form-error">{{ error|escape }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </form>
+    <br>
+</form>
+</div>
+</div>
+</div>
+<div class="mdl-cell mdl-cell--4-col">
+
+</div>
+
+<div class="mdl-cell mdl-cell--4-col">
+
+</div>
+<div class="mdl-cell mdl-cell--4-col">
+
+</div>
+<div class="mdl-cell mdl-cell--4-col">
+
+</div>
+
+</div>
+</main>
+{% include '_footer.html' %}
 </div>
 </body>
 </html>

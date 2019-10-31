@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="container">
-        <h3 class="text-center">Create New Post</h3>
+        <h3 class="text-center">Edit Post</h3>
 
         <form method="post">
             {% csrf_token %}
@@ -36,14 +36,13 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-large btn-raised">
-                Create Post
-
+                Update Post
             </button>
 
             {% if formset.errors %}
                 <div class="alert alert-danger mt-4" role="alert">
 
-                    <b><p class="alert-heading">Unable to Create Post</p></b>
+                    <b><p class="alert-heading">Unable to Edit Post</p></b>
                     <hr>
                     {% for field in formset %}
                         {% for error in field.errors %}

@@ -30,6 +30,10 @@ ALLOWED_HOSTS = ['165.227.198.84', 'codyrichter.net', 'localhost', ]
 
 NAME = 'ChatApp'
 
+LOGO_URL = 'https://i.imgur.com/M7IJrvK.png'
+
+ALLOW_NEW_USERS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -69,6 +73,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'reports.context_processors.site_name',
+                'reports.context_processors.logo_url',
+                'reports.context_processors.allow_new_users',
             ],
         },
     },

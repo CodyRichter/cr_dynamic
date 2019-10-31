@@ -19,6 +19,8 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 from cr_dynamic import settings
+from users import views
+from users.views import custom_login
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),

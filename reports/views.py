@@ -10,6 +10,7 @@ from reports.forms import PostForm
 from reports.models import Post, Interaction
 
 
+
 @login_required(login_url='/auth/login')
 def index(request):
     # Create specific lists of posts to display on home page
