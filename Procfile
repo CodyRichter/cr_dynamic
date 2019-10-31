@@ -1,1 +1,1 @@
-web: gunicorn lambchat:lambchat
+web: gunicorn cr_dynamic.wsgi --log-file -
