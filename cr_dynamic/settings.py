@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['165.227.198.84', 'codyrichter.net', 'localhost', ]
 
-NAME = 'ChatApp'
+NAME = 'Lambchat Version II BETA*'
 
 LOGO_URL = 'https://i.imgur.com/M7IJrvK.png'
 
