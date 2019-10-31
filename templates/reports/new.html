@@ -4,60 +4,62 @@
 {% block content %}
 
     <div class="container">
-        <h3 class="text-center">Create New Post</h3>
+        <div class="post-bg">
 
-        <form method="post">
-            {% csrf_token %}
+            <h3 class="text-center mt-2">Create New Post</h3>
 
-            <div class="form-group">
-                <label for="title" class="bmd-label-floating">Post Title</label>
-                <input type="text" class="form-control" id="title" name="title" required autofocus>
-            </div>
+            <form method="post">
+                {% csrf_token %}
 
-            <div class="form-group">
-                <label for="description" class="bmd-label-floating">Post Body</label>
-                <textarea class="form-control" id="description" name="description" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="image_link" class="bmd-label-floating">Image Link</label>
-                <input type="text" class="form-control" id="image_link" name="image_link">
-                <small class="text-muted">Not required</small>
-            </div>
-
-
-            <div class="form-group">
-                <div class="form-inline">
-                    <label for="release_date" class="bmd-label-static">Post Publishing Date</label>
-                    <input type="date" class="form-control mr-3" id="release_date" name="release_date" required>
-                    <button class="btn btn-primary btn-raised" type="button" onclick="change()">Today</button>
+                <div class="form-group">
+                    <label for="title" class="bmd-label-floating">Post Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required autofocus>
                 </div>
-                <small class="text-muted">When other users can view this post.</small>
-            </div>
 
-            <button type="submit" class="btn btn-primary btn-large btn-raised">
-                Create Post
+                <div class="form-group">
+                    <label for="description" class="bmd-label-floating">Post Body</label>
+                    <textarea class="form-control" id="description" name="description" required></textarea>
+                </div>
 
-            </button>
+                <div class="form-group">
+                    <label for="image_link" class="bmd-label-floating">Image Link</label>
+                    <input type="text" class="form-control" id="image_link" name="image_link">
+                    <small class="text-muted">Not required</small>
+                </div>
 
-            {% if formset.errors %}
-                <div class="alert alert-danger mt-4" role="alert">
 
-                    <b><p class="alert-heading">Unable to Create Post</p></b>
-                    <hr>
-                    {% for field in formset %}
-                        {% for error in field.errors %}
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label for="release_date" class="bmd-label-static">Post Publishing Date</label>
+                        <input type="date" class="form-control mr-3" id="release_date" name="release_date" required>
+                        <button class="btn btn-primary btn-raised" type="button" onclick="change()">Today</button>
+                    </div>
+                    <small class="text-muted">When other users can view this post.</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large btn-raised">
+                    Create Post
+
+                </button>
+
+                {% if formset.errors %}
+                    <div class="alert alert-danger mt-4" role="alert">
+
+                        <b><p class="alert-heading">Unable to Create Post</p></b>
+                        <hr>
+                        {% for field in formset %}
+                            {% for error in field.errors %}
+                                <p class="form-error mb-0">{{ error|escape }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in formset.non_field_errors %}
                             <p class="form-error mb-0">{{ error|escape }}</p>
                         {% endfor %}
-                    {% endfor %}
-                    {% for error in formset.non_field_errors %}
-                        <p class="form-error mb-0">{{ error|escape }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
+                    </div>
+                {% endif %}
 
-        </form>
-
+            </form>
+        </div>
     </div>
 
 {% endblock content %}
