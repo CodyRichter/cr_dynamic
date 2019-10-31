@@ -11,6 +11,9 @@
             <input type="text" class="form-control mt-3 mb-3" id="title" name="title" value="{{ form.title.value }}"
                    placeholder="Post Title" required autofocus>
 
+            <span class="bmd-help">Post Title</span>
+
+
             <textarea type="text" class="form-control mt-3 mb-3" id="description" name="description"
                       placeholder="Post Contents" required>{{ form.description.value }}</textarea>
 
@@ -26,7 +29,7 @@
                </span>
             </div>
 
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary btn-raised btn-large">
                 Update Post
             </button>
 
