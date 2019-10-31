@@ -11,7 +11,9 @@
     </a>
     <div class="card-footer">
         <small class="text-muted">
-            Posted on {{ post.release_date.astimezone.date }} by {{ post.author.get_username }}
+            Posted on {{ post.release_date.astimezone.date }} by
+            <a href="{% url 'profile' post.author.id %}">{{ post.author.username }}</a>
+
         </small>
     </div>
 </div>

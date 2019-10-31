@@ -14,8 +14,8 @@ from users.models import SiteUser
 
 @login_required(login_url='/auth/login')
 def profile(request, user_id):
-    if user_id is not request.user.id:
-        messages.error(request, 'You do not have permission to view this profile.')
+    if user_id is not request.user.id and SiteUser.objects.get(id=user_id).private:
+        messages.error(request, "This user's profile is private.")
         return redirect('/reports/')
     return render(request, 'registration/account.html')
 

@@ -4,62 +4,65 @@
 
 {% block content %}
 
-<div class="container">
 
-    <div class="row">
-        <h1 class="mt-4">{{ post.title }}</h1>
-    </div>
+    <div class="container">
+        <div class="post-bg">
 
-    <div class="container row mb-2">
-        <p class="lead">
-          by
-          <a href="{% url 'profile' post.author.id %}">{{ post.author.username }}</a>
-            on {{ post.release_date.astimezone }}
-        </p>
-    </div>
+            <div class="row">
+                <h1 class="mt-4">{{ post.title }}</h1>
+            </div>
 
-    {% if post.author == user or user.is_staff %}
-        <div class="container row mb-4">
-            <a class="mdl-navigation__link" href="{% url 'edit' post.pk %}">
-                <button class="btn btn-primary btn-block">
-                    Edit Post
-                </button>
-            </a>
-            &nbsp &nbsp &nbsp
-            <a class="mdl-navigation__link" href="{% url 'delete' post.pk %}">
-                <button class="btn btn-block btn-warning">Delete Post
-                </button>
-            </a>
-            &nbsp &nbsp &nbsp
-            {% if post.pinned and user.is_staff %}
+            <div class="container row mb-2">
+                <p class="lead">
+                    by
+                    <a href="{% url 'profile' post.author.id %}">{{ post.author.username }}</a>
+                    on {{ post.release_date.astimezone }}
+                </p>
+            </div>
 
-                <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
-                    <button class="btn btn-primary btn-block">
-                    Unpin Post
-                    </button>
-                </a>
+            {% if post.author == user or user.is_staff %}
+                <div class="container row mb-4">
+                    <a class="mdl-navigation__link" href="{% url 'edit' post.pk %}">
+                        <button class="btn btn-primary btn-block">
+                            Edit Post
+                        </button>
+                    </a>
+                    &nbsp &nbsp &nbsp
+                    <a class="mdl-navigation__link" href="{% url 'delete' post.pk %}">
+                        <button class="btn btn-block btn-warning">Delete Post
+                        </button>
+                    </a>
+                    &nbsp &nbsp &nbsp
+                    {% if post.pinned and user.is_staff %}
 
-            {% elif not post.pinned and user.is_staff %}
+                        <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
+                            <button class="btn btn-primary btn-block">
+                                Unpin Post
+                            </button>
+                        </a>
 
-                <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
-                    <button class="btn btn-primary btn-block">
-                    Pin Post
-                    </button>
-                </a>
+                    {% elif not post.pinned and user.is_staff %}
 
+                        <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
+                            <button class="btn btn-primary btn-block">
+                                Pin Post
+                            </button>
+                        </a>
+
+                    {% endif %}
+                </div>
             {% endif %}
-        </div>
-    {% endif %}
 
-    {% if post.image_link %}
-        <div class="container row">
-            <img class="img-fluid rounded" src="{{ post.image_link }}" alt="Post Image">
-        </div>
-    {% endif %}
+            {% if post.image_link %}
+                <div class="container row">
+                    <img class="img-fluid rounded" src="{{ post.image_link }}" alt="Post Image">
+                </div>
+            {% endif %}
 
-    <div class="container row">
-        <p>{{ post.description }}</p>
+            <div class="container row">
+                <p>{{ post.description }}</p>
+            </div>
+        </div>
     </div>
-</div>
 
 {% endblock content %}
