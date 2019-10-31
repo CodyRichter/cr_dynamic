@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.conf.global_settings import AUTH_USER_MODEL
 from django.contrib.messages import constants as messages
+import django_heroku
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -152,3 +153,5 @@ AUTH_USER_MODEL = 'users.SiteUser'
 
 LOGIN_REDIRECT_URL = '/reports'
 LOGOUT_REDIRECT_URL = 'index'
+
+django_heroku.settings(locals())
