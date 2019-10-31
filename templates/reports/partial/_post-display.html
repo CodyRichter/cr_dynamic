@@ -1,8 +1,18 @@
-<div class="card col-sm-4 mb-3">
-    <a href="{% url 'detail' post.id %}" class="stretched-link"></a>
-        <h5 class="card-header">{{ post.title }}</h5>
-        <div class="card-body">
-        Posted by {{ post.author.get_username }}
-        on {{ post.release_date.astimezone.date }}
+<div class="card ">
+    <a href="{% url 'detail' post.id %}" class="no-style">
+
+        <div class="card-body mb-0 ">
+            <h5 class="card-title mb-1">{{ post.title }}</h5>
+            {{ post.description|slice:"0:25" }}
+            {% if post.description|length > 25 %}
+                ...
+            {% endif %}
         </div>
+    </a>
+    <div class="card-footer">
+        <small class="text-muted">
+            Posted on {{ post.release_date.astimezone.date }} by {{ post.author.get_username }}
+        </small>
+    </div>
 </div>
+

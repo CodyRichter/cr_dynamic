@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <meta charset="UTF-8">
 
     <link rel="icon" type="image/png" href="{{ LOGO_URL }}">
 
     <title> {{ SITE_NAME }}:
-    {% block title %}{% endblock title %}
+        {% block title %}{% endblock title %}
     </title>
 
     <style>
@@ -20,72 +22,91 @@
         }
 
         .form-signin {
-          width: 100%;
-          max-width: 330px;
-          padding: 15px;
-          margin: 0 auto;
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
         }
+
         .form-signin .checkbox {
-          font-weight: 400;
+            font-weight: 400;
         }
+
         .form-signin .form-control {
-          position: relative;
-          box-sizing: border-box;
-          height: auto;
-          padding: 10px;
-          font-size: 16px;
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
         }
+
         .form-signin .form-control:focus {
-          z-index: 2;
+            z-index: 2;
         }
+
         .form-signin input[type="email"] {
-          margin-bottom: -1px;
-          border-bottom-right-radius: 0;
-          border-bottom-left-radius: 0;
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
         }
+
         .form-signin input[type="password"] {
-          margin-bottom: 10px;
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
         }
 
         textarea {
             resize: none;
         }
+
+        .no-style, .no-style:link, .no-style:hover {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
     </style>
 </head>
 
 <body>
 
-    {% include '_header.html' %}
+{% include '_header.html' %}
 
-    {% block content %}
+{% block content %}
     <!-- Begin Content Block-->
 
     <!-- End Content Block-->
-    {% endblock %}
-    {#    Bootstrap Javascript Libraries#}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
-    <script>
-        var tx = document.getElementsByTagName('textarea');
-        for (var i = 0; i < tx.length; i++) {
-          tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
-          tx[i].addEventListener("input", OnInput, false);
-        }
+{% endblock %}
+{#    Bootstrap Javascript Libraries#}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+<script>$(document).ready(function () {
+    $('body').bootstrapMaterialDesign();
+});</script>
+<script>
+    var tx = document.getElementsByTagName('textarea');
+    for (var i = 0; i < tx.length; i++) {
+        tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+        tx[i].addEventListener("input", OnInput, false);
+    }
 
-        function OnInput() {
-          this.style.height = 'auto';
-          this.style.height = (this.scrollHeight) + 'px';
-        }
+    function OnInput() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    }
 
-        function change() {
+    function change() {
         document.getElementById("release_date").value = new Date().toLocaleDateString()
-        }
-    </script>
+    }
+</script>
 
 </body>
-    {% include '_footer.html' %}
+{% include '_footer.html' %}
 </html>
