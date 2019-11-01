@@ -21,7 +21,7 @@
                     <h3 class="mb-3">Pinned Posts</h3>
                 {% endif %}
 
-                <div class="card-columns">
+                <div class="row justify-content-center">
                     {% for post in pinned %}
                         {% include 'reports/partial/_post-display.html' %}
                     {% endfor %}
@@ -32,7 +32,7 @@
                     {% if post_past %}
 
                         <h3 class="mb-3">Today's Posts</h3>
-                        <div class="card-columns">
+                        <div class="row justify-content-center ">
                             {% for post in post_today %}
                                 {% include 'reports/partial/_post-display.html' %}
                             {% endfor %}
@@ -42,7 +42,7 @@
                     {% if all_posts %}
 
                         <h3 class="mb-3">Previous Posts</h3>
-                        <div class="card-columns">
+                        <div class="row justify-content-center ">
                             {% for post in all_posts %}
                                 {% include 'reports/partial/_post-display.html' %}
                             {% endfor %}
@@ -59,7 +59,7 @@
                 {% if my_post %}
 
                     <h3 class="mb-3">My Posts</h3>
-                    <div class="card-columns">
+                    <div class="row justify-content-center ">
                         {% for post in my_post %}
                             {% include 'reports/partial/_post-display.html' %}
                         {% endfor %}

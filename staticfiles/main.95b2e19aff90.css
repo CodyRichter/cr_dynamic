@@ -1,0 +1,62 @@
+body {
+    background-color: rgba(116, 128, 125, 0.28);
+    min-height: 105vh;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+textarea {
+    resize: none;
+}
+
+.no-style, .no-style:link, .no-style:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.post-bg {
+    background-color: #cbced0;
+    padding: 0 90px;
+    border-radius: 2em;
+    min-height: 70vh;
+}
+
+/* User for floating action buttons */
+.button-float-bottom-right {
+    position: fixed;
+    bottom: 8vh;
+    right: 5vw;
+}
