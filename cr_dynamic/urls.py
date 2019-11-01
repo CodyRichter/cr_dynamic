@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+from reports.views import  error404, error500
 from cr_dynamic import settings
 from users import views
 from users.views import custom_login
@@ -29,4 +30,7 @@ urlpatterns = [
     path('auth/', include('users.urls')),
     path('admin/', admin.site.urls),
 ]
+
+handler404 = error404
+handler500 = error500
 

@@ -115,3 +115,11 @@ def pin(request, post_id):
     else:
         messages.success(request, 'Post unpinned successfully.')
     return render(request, 'reports/detail.html', {'post': post})
+
+
+def error404(request, exception):
+    return render(request, 'PageNotFound.html', {})
+
+
+def error500(request):
+    return render(request, 'PageNotFound.html', {})
