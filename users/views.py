@@ -38,12 +38,15 @@ def custom_login(request, **kwargs):
     else:
         return login(request, kwargs)
 
+
 class SignUp(CreateView):
     form_class = SiteUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
-    def enabled(self, request, *args, **kwargs):
+    def get(self, request, **kwargs):
         if not settings.ALLOW_NEW_USERS:
             messages.error(self.request, 'New user registration is currently closed.')
             return redirect('/auth/login')
+        else:
+            return super(SignUp, self).get(request)
