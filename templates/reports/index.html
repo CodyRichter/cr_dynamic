@@ -3,77 +3,77 @@
 {% block title %}Posts{% endblock title %}
 {% block content %}
 
-<div class="container text-center">
-    <ul class="nav nav-tabs justify-content-center mb-4">
-        <li class="active mr-3 ml-3 mb-2">
-            <a class="btn btn-primary btn-raised active mr-5 btn-block" data-toggle="tab" href="#all">All Posts</a>
-        </li>
-        <li class="mr-3 ml-3 mb-2">
-            <a class="btn btn-primary btn-raised btn-block mr-5" data-toggle="tab" href="#mine">My Posts</a>
-        </li>
-    </ul>
+    <div class="container text-center">
+        <ul class="nav nav-tabs justify-content-center mb-4">
+            <li class="active mr-3 ml-3 mb-2">
+                <a class="btn btn-primary btn-raised active mr-5 btn-block" data-toggle="tab" href="#all">All Posts</a>
+            </li>
+            <li class="mr-3 ml-3 mb-2">
+                <a class="btn btn-primary btn-raised btn-block mr-5" data-toggle="tab" href="#mine">My Posts</a>
+            </li>
+        </ul>
 
-    <div class="tab-content">
-        <!-- All Posts -->
-        <div id="all" class="tab-pane active">
+        <div class="tab-content">
+            <!-- All Posts -->
+            <div id="all" class="tab-pane active">
 
-        {% if pinned %}
-        <h3 class="mb-3">Pinned Posts</h3>
-        {% endif %}
+                {% if pinned %}
+                    <h3 class="mb-3">Pinned Posts</h3>
+                {% endif %}
 
-        <div class="card-columns">
-            {% for post in pinned %}
-                {% include 'reports/partial/_post-display.html' %}
-            {% endfor %}
-        </div>
-
-        {% if post_today or all_posts or pinned %}
-
-            {% if post_past %}
-
-                <h3 class="mb-3">Today's Posts</h3>
                 <div class="card-columns">
-                    {% for post in post_today %}
+                    {% for post in pinned %}
                         {% include 'reports/partial/_post-display.html' %}
                     {% endfor %}
                 </div>
-            {% endif %}
 
-            {% if all_posts %}
+                {% if post_today or all_posts or pinned %}
 
-                <h3 class="mb-3">Previous Posts</h3>
-                <div class="card-columns">
-                    {% for post in all_posts %}
-                        {% include 'reports/partial/_post-display.html' %}
-                    {% endfor %}
-                </div>
-            {% endif %}
+                    {% if post_past %}
 
-        {% else %}
-            <h3>No Posts.</h3>
-        {% endif %}
-        </div>
+                        <h3 class="mb-3">Today's Posts</h3>
+                        <div class="card-columns">
+                            {% for post in post_today %}
+                                {% include 'reports/partial/_post-display.html' %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
-        <!-- User's Posts -->
-        <div id="mine" class="tab-pane fade">
-        {% if my_post %}
+                    {% if all_posts %}
 
-            <h3 class="mb-3">My Posts</h3>
-            <div class="card-columns">
-                {% for post in my_post %}
-                    {% include 'reports/partial/_post-display.html' %}
-                {% endfor %}
+                        <h3 class="mb-3">Previous Posts</h3>
+                        <div class="card-columns">
+                            {% for post in all_posts %}
+                                {% include 'reports/partial/_post-display.html' %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                {% else %}
+                    <h3>No Posts.</h3>
+                {% endif %}
             </div>
-        {% else %}
-            <h3>You don't have any posts.</h3>
-        {% endif %}
+
+            <!-- User's Posts -->
+            <div id="mine" class="tab-pane fade">
+                {% if my_post %}
+
+                    <h3 class="mb-3">My Posts</h3>
+                    <div class="card-columns">
+                        {% for post in my_post %}
+                            {% include 'reports/partial/_post-display.html' %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <h3>You don't have any posts.</h3>
+                {% endif %}
+            </div>
         </div>
+
     </div>
-
-</div>
-
-{#        <a href="{% url 'new' %}" class="mdl-navigation__link add-post-button">#}
-{#            <button class="mdl-button mdl-button--primary mdl-button--fab mdl-js-ripple-effect"><i#}
-{#                    class="material-icons">add</i></button>#}
-{#        </a>#}
+    <a href="{% url 'new' %}" class="no-style">
+        <button type="button" class="btn btn-primary bmd-btn-fab button-float-bottom-right">
+            <i class="material-icons">add</i>
+        </button>
+    </a>
 {% endblock content %}

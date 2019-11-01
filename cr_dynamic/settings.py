@@ -35,7 +35,7 @@ NAME = 'Lambchat Version II BETA*'
 
 LOGO_URL = 'https://i.imgur.com/M7IJrvK.png'
 
-ALLOW_NEW_USERS = True
+ALLOW_NEW_USERS = False
 
 # Application definition
 

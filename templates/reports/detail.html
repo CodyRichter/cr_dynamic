@@ -8,35 +8,31 @@
     <div class="container">
         <div class="post-bg">
 
-            <div class="row mt-2">
-                <h1 class="mt-4">{{ post.title }}</h1>
-            </div>
-
-            <div class="container row mb-2">
+            <div class="container mb-2 mt-2 text-center">
+                <h1 class="display-3">{{ post.title }}</h1>
                 <p class="lead">
-                    by
                     <a href="{% url 'profile' post.author.id %}">{{ post.author.username }}</a>
-                    on {{ post.release_date.astimezone }}
+                    on {{ post.release_date.astimezone|date:"m/d/Y" }}
                 </p>
             </div>
 
             {% if post.author == user or user.is_staff %}
                 <div class="container row mb-4">
                     <a class="mdl-navigation__link" href="{% url 'edit' post.pk %}">
-                        <button class="btn btn-primary btn-block">
+                        <button class="btn btn-raised btn-secondary">
                             Edit Post
                         </button>
                     </a>
                     &nbsp &nbsp &nbsp
                     <a class="mdl-navigation__link" href="{% url 'delete' post.pk %}">
-                        <button class="btn btn-block btn-warning">Delete Post
+                        <button class="btn btn-raised btn-warning">Delete Post
                         </button>
                     </a>
                     &nbsp &nbsp &nbsp
                     {% if post.pinned and user.is_staff %}
 
                         <a class="mdl-navigation__link" href="{% url 'pin' post.pk %}">
-                            <button class="btn btn-primary btn-block">
+                            <button class="btn btn-raised btn-secondary">
                                 Unpin Post
                             </button>
                         </a>

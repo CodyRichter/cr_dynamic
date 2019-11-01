@@ -10,6 +10,7 @@
           integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <meta charset="UTF-8">
 
+    <script src="{% static 'main.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'main.css' %}">
 
@@ -45,22 +46,6 @@
 <script>$(document).ready(function () {
     $('body').bootstrapMaterialDesign();
 });</script>
-<script>
-    var tx = document.getElementsByTagName('textarea');
-    for (var i = 0; i < tx.length; i++) {
-        tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
-        tx[i].addEventListener("input", OnInput, false);
-    }
-
-    function OnInput() {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-    }
-
-    function change() {
-        document.getElementById("release_date").value = new Date().toLocaleDateString()
-    }
-</script>
 
 </body>
 {% include '_footer.html' %}
